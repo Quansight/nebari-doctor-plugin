@@ -83,7 +83,7 @@ def run_agent(prompt: str = None) -> str:
         while True:
             result = agent.run_sync(user_input)#, message_history=message_history)
             latest_result = result.data
-            rich.print(f'Agent: [purple]{latest_result.message}[/purple]\n')
+            rich.print(f'Agent: [bright_yellow]{latest_result.message}[/bright_yellow]\n')
             user_input = rich.prompt.Prompt.ask('User',)
     except KeyboardInterrupt:
         print('Exiting...')
