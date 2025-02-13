@@ -12,8 +12,10 @@ packages = [
 name = "nebari_doctor"
 version = "0.0.1"
 dependencies = [
-    "nebari",
-    "pydantic_ai=0.0.22",
+    # "nebari",
+    "pydantic_ai==0.0.22",
+    "questionary==2.0.0",
+    "rich==13.9.4",
 ]
 
 [project.entry-points.nebari]

@@ -1,0 +1,11 @@
+name: pydantic-ai-demo
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - pip
+  - pip:
+    - pydantic_ai==0.0.22
+    - questionary==2.0.0
+    - rich==13.9.4
