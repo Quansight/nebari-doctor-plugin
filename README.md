@@ -41,4 +41,4 @@ graph TD
     H --> A;
 ```
 
-j
+Currently, it only is an example of how it might work.  Pretend that you just hit the issue and you immediately ask the question that is auto fed in when running nebari doctor.  The last few minutes of the logs is available for the agent, and it explains what it sees.
