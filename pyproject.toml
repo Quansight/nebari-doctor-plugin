@@ -13,7 +13,7 @@ name = "nebari_doctor"
 version = "0.0.1"
 dependencies = [
     "nebari",
-    "pydantic_ai",
+    "pydantic_ai=0.0.22",
 ]
 
 [project.entry-points.nebari]
