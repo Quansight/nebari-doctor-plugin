@@ -5,11 +5,13 @@ This plugin uses an AI agent to attempt to diagnose your issue with Nebari.
 ![Nebari Doctor Demo](./demo.png)
 
 # Set up the environment
+run the following from top level dir
+```bash
 conda env create -f environment.yaml
 conda activate pydantic-ai-demo
 pip install -e .
-
 python -m nebari_doctor
+```
 
 # Run the Demo
 Run the demo with `python -m nebari_doctor`
