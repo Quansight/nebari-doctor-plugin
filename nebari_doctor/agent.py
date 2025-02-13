@@ -28,7 +28,7 @@ def get_pod_logs():
     Get the logs for the last 5 minutes from the pods.
     """
     # ~15_000_000 tokens for all logs
-    print('Getting pod logs...', end='\n\n')
+    print('Getting last 5 minutes of pod logs...', end='\n\n')
     from nebari_doctor.pod_logs import POD_LOGS
     return POD_LOGS
 
@@ -68,8 +68,8 @@ def run_agent(prompt: str = None) -> str:
     """
     try:
         agent = Agent(
-            # 'google-gla:gemini-1.5-flash',
-            'openai:gpt-4o',
+            'google-gla:gemini-2.0-flash',
+            # 'openai:gpt-4o',
             system_prompt=LLM_PROMPT,
             result_type=ChatResponse,
             tools=[get_pod_logs],
