@@ -14,7 +14,8 @@ python -m nebari_doctor
 ```
 
 # Run the Demo
-Run the demo with `python -m nebari_doctor`
+- Set `GEMINI_API_KEY` env var
+- Run the demo with `python -m nebari_doctor`
 
 # How it works
 Build a nebari doctor LLM functionality
