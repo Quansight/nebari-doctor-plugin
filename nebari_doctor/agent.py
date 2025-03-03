@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 import questionary
 import rich
+from rich.prompt import Prompt
 from nebari_doctor.prompts import LLM_PROMPT
 
 MODEL_CONTEXT_LIMIT = {
@@ -84,7 +85,7 @@ def run_agent(prompt: str = None) -> str:
             result = agent.run_sync(user_input)#, message_history=message_history)
             latest_result = result.data
             rich.print(f'Agent: [bright_yellow]{latest_result.message}[/bright_yellow]\n')
-            user_input = rich.prompt.Prompt.ask('User',)
+            user_input = Prompt.ask('User',)
     except KeyboardInterrupt:
         print('Exiting...')
     except Exception as e:
