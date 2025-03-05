@@ -18,5 +18,11 @@ dependencies = [
     "rich==13.9.4",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pre-commit>=3.5.0",
+    "pytest",
+]
+
 [project.entry-points.nebari]
 nebari-doctor = "nebari_doctor"
