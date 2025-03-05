@@ -1,6 +1,7 @@
+import pathlib
 import textwrap
 from nebari.hookspecs import hookimpl
-from nebari_doctor.agent import run_agent
+from nebari_doctor.agent import USER_PROMPT, run_agent
 
 import typer
 
@@ -11,8 +12,16 @@ def nebari_subcommand(cli):
     @cli.command()
     def doctor(
         prompt: str = typer.Option(
-            user_issue,# '--prompt', '-p',  help="Describe your Nebari issue", prompt=USER_PROMPT
-        )
+            user_issue,
+            # '--prompt', '-p',  help="Describe your Nebari issue", prompt=USER_PROMPT
+        ),
+        config_filename: pathlib.Path = typer.Option(
+            ...,
+            "--config",
+            "-c",
+            help="nebari configuration yaml file path",
+        ),
     ):
-        result = run_agent(prompt)
+        
+        result = run_agent(prompt, config_filename)
         print(result)
