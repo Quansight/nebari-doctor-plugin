@@ -2,15 +2,33 @@ import inspect
 import pathlib
 import textwrap
 from typing import Optional, Callable, List, Dict, Any
+from functools import wraps
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 import questionary
-import rich
-from rich.prompt import Prompt
-from rich.panel import Panel
+from nebari_doctor.styling import (
+    console, 
+    display_message, 
+    display_header, 
+    get_user_input, 
+    MessageType,
+    format_code
+)
 from nebari_doctor.tools.get_nebari_config import make_get_nebari_config_tool
 from nebari_doctor.tools.get_pod_logs import get_nebari_pod_logs_tool, make_get_nebari_pod_names_tool, get_nebari_pod_logs_tool
 from nebari_doctor.prompts import LLM_PROMPT, display_tool_info
+
+def tool_output_wrapper(func):
+    """Wrapper to display tool outputs in a consistent format"""
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        tool_name = func.__name__
+        display_message(f"Running tool: {tool_name}", MessageType.SYSTEM)
+        result = func(*args, **kwargs)
+        if result:
+            display_message(result, MessageType.TOOL, title=f"🔧 {tool_name} Output")
+        return result
+    return wrapper
 
 MODEL_CONTEXT_LIMIT = {
     # Not in pydantic-ai somewhere
@@ -33,10 +51,8 @@ def message_user(message: str) -> str:
     Returns:
         str: user's response to the message
     """
-    rich.print(f'Agent: [bright_yellow]{message}[/bright_yellow]\n')
-    user_input = Prompt.ask('User',)
-    # print(question)
-    # user_input = input("User: ")
+    display_message(message, MessageType.AGENT)
+    user_input = get_user_input()
     return user_input
 
 
@@ -62,16 +78,19 @@ def run_agent(prompt: str, nebari_config_path: pathlib.Path) -> str:
     Run the agent with a simple prompt.
     """
     try:
-        # Define tools
+        # Display welcome header
+        display_header("🔍 Welcome to Nebari Doctor")
+        
+        # Define tools with wrappers for better output formatting
         tools = [
             message_user,
-            make_get_nebari_config_tool(nebari_config_path),
-            make_get_nebari_pod_names_tool(nebari_config_path),
-            get_nebari_pod_logs_tool,
+            tool_output_wrapper(make_get_nebari_config_tool(nebari_config_path)),
+            tool_output_wrapper(make_get_nebari_pod_names_tool(nebari_config_path)),
+            tool_output_wrapper(get_nebari_pod_logs_tool),
         ]
         
-        # Ask if user wants to see tool information
-        rich.print(USER_PROMPT)
+        # Show introduction
+        display_message(USER_PROMPT, MessageType.SYSTEM)
         show_tools = True # questionary.confirm("Would you like to see information about available tools?").ask()
         
         if show_tools:
@@ -86,18 +105,22 @@ def run_agent(prompt: str, nebari_config_path: pathlib.Path) -> str:
         )
 
         latest_result = ChatResponse(message=USER_PROMPT)
-        i = 0
         message_history = []
+        
+        # Display initial user issue
         user_input = INITIAL_NEBARI_ISSUE
-        rich.print(f'User: [cyan]{user_input}[/cyan]', end='\n\n')            
+        display_message(user_input, MessageType.USER)
+        
+        # Main conversation loop
         while True:
             result = agent.run_sync(user_input)#, message_history=message_history)
             latest_result = result.data
-            message_user(latest_result.message)
+            user_input = message_user(latest_result.message)
+            display_message(user_input, MessageType.USER)
+            
     except KeyboardInterrupt:
-        print('Exiting...')
+        display_message("Exiting...", MessageType.SYSTEM)
     except Exception as e:
-        print('An error occurred.  Now Exiting...')
-        print(e)
+        display_message(f"An error occurred. Now Exiting...\n{str(e)}", MessageType.ERROR)
     
     

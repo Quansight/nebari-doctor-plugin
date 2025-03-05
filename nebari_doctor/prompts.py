@@ -2,8 +2,12 @@ import inspect
 from typing import Callable, List
 
 import questionary
-import rich
-from rich.panel import Panel
+from nebari_doctor.styling import (
+    console, 
+    display_message, 
+    MessageType,
+    format_code
+)
 
 
 def display_tool_info(tools: List[Callable]) -> None:
@@ -15,9 +19,21 @@ def display_tool_info(tools: List[Callable]) -> None:
     """
     tool_names = [tool.__name__ for tool in tools]
     
+    # Display header for tools section
+    console.rule("[tool_name]Available Tools[/tool_name]")
+    console.print()
+    
+    # Create a list of tool descriptions for initial display
+    for tool in tools:
+        name = tool.__name__
+        doc_first_line = (inspect.getdoc(tool) or "").split('\n')[0]
+        console.print(f"[tool_name]• {name}[/tool_name]: [info]{doc_first_line}[/info]")
+    
+    console.print()
+    
     while True:
         choice = questionary.select(
-            "Select a tool to see its documentation (or 'Exit' to continue):",
+            "Select a tool to see its full documentation (or 'Exit' to continue):",
             choices=tool_names + ["Exit"],
             default="Exit"
         ).ask()
@@ -29,7 +45,7 @@ def display_tool_info(tools: List[Callable]) -> None:
         for tool in tools:
             if tool.__name__ == choice:
                 docstring = inspect.getdoc(tool) or "No documentation available"
-                rich.print(Panel(docstring, title=f"[bold green]{choice}[/bold green]"))
+                display_message(docstring, MessageType.TOOL, title=f"🔧 {choice}")
                 break
 
 

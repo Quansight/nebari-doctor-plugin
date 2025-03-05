@@ -16,6 +16,8 @@ dependencies = [
     "pydantic_ai==0.0.23",
     "questionary==2.0.0",
     "rich==13.9.4",
+    "markdown-it-py>=2.2.0",
+    "pygments>=2.15.0",
 ]
 
 [project.optional-dependencies]
