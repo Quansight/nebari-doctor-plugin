@@ -3,17 +3,17 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = [
-    "nebari_doctor",
-]
+packages = ["nebari_doctor"]
 
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [project]
 name = "nebari_doctor"
 version = "0.0.1"
 dependencies = [
-    # "nebari",
-    "pydantic_ai==0.0.22",
+    "nebari @ file:../nebari",
+    "pydantic_ai==0.0.23",
     "questionary==2.0.0",
     "rich==13.9.4",
 ]

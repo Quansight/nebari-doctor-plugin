@@ -8,7 +8,7 @@ from rich.prompt import Prompt
 from nebari_doctor.prompts import LLM_PROMPT
 
 MODEL_CONTEXT_LIMIT = {
-    # May be in pydantic-ai somewhere
+    # Not in pydantic-ai somewhere
     'openai:gpt-4o': 128_000,
     'google-gla:gemini-2.0-flash-exp': 1_000_000,
 }
