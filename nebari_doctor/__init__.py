@@ -11,38 +11,36 @@ user_issue = 'My user ad tried to shut down the My Panel App (Git) app started b
 
 @hookimpl
 def nebari_subcommand(cli):
-    @cli.command()
-    def doctor(
+    doctor_app = typer.Typer(help="Diagnose and fix Nebari issues")
+    
+    @doctor_app.command()
+    def diagnose(
         prompt: str = typer.Option(
             None,
             '--prompt', '-p',  help="Describe your Nebari issue", prompt=USER_PROMPT
         ),
-        config_filename: Optional[pathlib.Path] = typer.Option(
-            None,
+        config_filename: pathlib.Path = typer.Option(
+            ...,
             "--config",
             "-c",
             help="nebari configuration yaml file path",
         ),
-        demo: bool = typer.Option(
-            False,
-            "--demo",
-            help="Run in demo mode with sample config and predefined prompt",
-        ),
     ):
-        # In demo mode, use predefined prompt and don't require config file
-        if demo:
-            prompt = INITIAL_NEBARI_ISSUE
-            # Use a dummy config path if none provided in demo mode
-            if config_filename is None:
-                config_filename = pathlib.Path("demo_config.yaml")
-        # In normal mode, config file is required
-        elif config_filename is None:
-            typer.echo("Error: --config option is required when not in demo mode")
-            raise typer.Exit(1)
-        
-        # Use provided prompt or get it interactively if not in demo mode
-        if prompt is None and not demo:
+        """Run the doctor with your own prompt and config file."""
+        # Use provided prompt or get it interactively
+        if prompt is None:
             prompt = typer.prompt(USER_PROMPT)
 
         result = run_agent(prompt, config_filename)
         print(result)
+    
+    @doctor_app.command()
+    def demo():
+        """Run the doctor in demo mode with a predefined prompt and config."""
+        prompt = INITIAL_NEBARI_ISSUE
+        config_filename = pathlib.Path("demo_config.yaml")
+        
+        result = run_agent(prompt, config_filename)
+        print(result)
+    
+    cli.add_typer(doctor_app, name="doctor")
