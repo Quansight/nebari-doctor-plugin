@@ -9,7 +9,6 @@ from typing import Any, Dict, List, Optional
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
-from rich.prompt import Prompt
 from rich.syntax import Syntax
 from rich.table import Table
 from rich.theme import Theme
@@ -66,7 +65,7 @@ def truncate_long_text(
     """
     if not message:
         return ""
-        
+
     # First split by actual newlines
     lines = message.split("\n")
 
@@ -167,9 +166,27 @@ def display_message(
         console.print(panel)
 
 
-def get_user_input(prompt_text: str = "👤 User") -> str:
+def get_user_input(prompt_text: str = "👤 User: ") -> str:
     """Get input from the user with styled prompt"""
-    return Prompt.ask(f"[prompt]{prompt_text}[/prompt]")
+    return hidden_input(f"[prompt]{prompt_text}[/prompt]")
+
+
+def hidden_input(prompt_text):
+    """Gets styled input and hides it afterward using ANSI escape codes
+
+    Compatible with rich console styling
+    """
+
+    # Print the prompt with styling, but don't add newline
+    console.print(prompt_text, end="", highlight=False)
+
+    # Get input (this adds a newline)
+    result = input()
+
+    # Move cursor up and clear the line
+    print("\033[1A\033[2K", end="", flush=True)
+
+    return result
 
 
 def display_header(title: str) -> None:
