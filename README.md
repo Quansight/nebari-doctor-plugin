@@ -1,25 +1,31 @@
 #  Nebari Doctor
 
-This plugin uses an AI agent to attempt to diagnose your issue with Nebari. 
+This plugin uses an AI agent to attempt to diagnose your issue with Nebari.
 
 ![Nebari Doctor Demo](./demo.png)
 
 # Set up the environment
-run the following from top level dir
+Run the following from top level dir:
 ```bash
 conda env create -f environment.yaml
-conda activate pydantic-ai-demo
+conda activate nebari-doctor
 pip install -e .
 python -m nebari_doctor
 ```
 
 # Run the Demo
-- Set `GEMINI_API_KEY` env var
+- Set `OPENAI_API_KEY` env var (or `GEMINI_API_KEY` if using Gemini)
 - Run the demo with `python -m nebari_doctor`
+
+# Features
+- 🤖 AI-powered diagnostics for Nebari issues
+- 🎨 Beautiful, color-coded interface for easy reading
+- 🔍 Intelligent analysis of pod logs and configuration
+- 💬 Interactive chat experience with the diagnostic agent
 
 # How it works
 Build a nebari doctor LLM functionality
-- user describe issues
+- User describes issues in a friendly chat interface
 - LLM gets context:
     - pod logs (1.5M+ words)
     - code base (260K words)
@@ -27,7 +33,7 @@ Build a nebari doctor LLM functionality
         - FAQ
     - search/look at open github issues
     - search/look at discussions
-- system prompt describes Nebari, tell user what is wrong
+- System prompt describes Nebari, tell user what is wrong
 
 Too many words for most LLMs context so, we'll have an agent assess which pod logs it thinks are going to be most useful or look at all sequentially and assess if they look useful or not.
 
@@ -56,4 +62,4 @@ graph TD
     H --> A;
 ```
 
-Currently, it only is an example of how it might work.  Pretend that you just hit the issue and you immediately ask the question that is auto fed in when running nebari doctor.  The last few minutes of the logs is available for the agent, and it explains what it sees.
+Currently, it only is an example of how it might work. The agent will analyze your Nebari configuration and logs to help diagnose issues you're experiencing.

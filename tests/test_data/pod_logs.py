@@ -601,7 +601,7 @@ ERROR:    Exception in ASGI application
     |   File "/opt/conda/lib/python3.9/site-packages/fastapi/routing.py", line 301, in app
     |     raw_response = await run_endpoint_function(
     |   File "/opt/conda/lib/python3.9/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
-    |     return await dependant.call(**values)
+    |     return await dependent.call(**values)
     |   File "/opt/conda/lib/python3.9/site-packages/jhub_apps/service/routes.py", line 240, in delete_server
     |     return hub_client.delete_server(user.name, server_name=server_name, remove=remove)
     |   File "/opt/conda/lib/python3.9/site-packages/jhub_apps/hub_client/hub_client.py", line 33, in wrapper
@@ -667,7 +667,7 @@ Traceback (most recent call last):
   File "/opt/conda/lib/python3.9/site-packages/fastapi/routing.py", line 301, in app
     raw_response = await run_endpoint_function(
   File "/opt/conda/lib/python3.9/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
-    return await dependant.call(**values)
+    return await dependent.call(**values)
   File "/opt/conda/lib/python3.9/site-packages/jhub_apps/service/routes.py", line 240, in delete_server
     return hub_client.delete_server(user.name, server_name=server_name, remove=remove)
   File "/opt/conda/lib/python3.9/site-packages/jhub_apps/hub_client/hub_client.py", line 33, in wrapper
@@ -775,8 +775,8 @@ Traceback (most recent call last):
     return await self.oauth_proxy(port, path)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: object NoneType can't be used in 'await' expression
-[I 250212 16:21:10 proxyhandlers:864] SuperviseAndProxyHandler http_get 34411 
-INFO:tornado.application:SuperviseAndProxyHandler http_get 34411 
+[I 250212 16:21:10 proxyhandlers:864] SuperviseAndProxyHandler http_get 34411
+INFO:tornado.application:SuperviseAndProxyHandler http_get 34411
 [D 250212 16:21:10 auth:835] No user identified
 DEBUG:tornado.application:No user identified
 [D 250212 16:21:10 auth:1398] Redirecting to login url: /hub/api/oauth2/authorize?client_id=jupyterhub-user-andy-my-panel-app-git&redirect_uri=%2Fuser%2Fandy%2Fmy-panel-app-git%2Foauth_callback&response_type=code
@@ -825,8 +825,8 @@ DEBUG:tornado.application:User model {'kind': 'user', 'admin': False, 'name': 'a
 DEBUG:tornado.application:Setting oauth cookie for 10.244.0.1: jupyterhub-user-andy-my-panel-app-git, {'path': '/user/andy/my-panel-app-git/', 'httponly': True, 'secure': True}
 [I 250212 16:21:10 _xsrf_utils:125] Setting new xsrf cookie for b'1b93ba71fd784b9fb1634ef740155ff9:e1a6ea260a39d78a95419d7d2133913eda7ee8c08e451f6bf92e2b42caa6db02' {'path': '/user/andy/my-panel-app-git/'}
 INFO:tornado.application:Setting new xsrf cookie for b'1b93ba71fd784b9fb1634ef740155ff9:e1a6ea260a39d78a95419d7d2133913eda7ee8c08e451f6bf92e2b42caa6db02' {'path': '/user/andy/my-panel-app-git/'}
-[I 250212 16:21:10 proxyhandlers:864] SuperviseAndProxyHandler http_get 34411 
-INFO:tornado.application:SuperviseAndProxyHandler http_get 34411 
+[I 250212 16:21:10 proxyhandlers:864] SuperviseAndProxyHandler http_get 34411
+INFO:tornado.application:SuperviseAndProxyHandler http_get 34411
 [D 250212 16:21:10 auth:1434] Allowing Hub user andy based on oauth scopes {'access:servers!server=andy/my-panel-app-git'}
 DEBUG:tornado.application:Allowing Hub user andy based on oauth scopes {'access:servers!server=andy/my-panel-app-git'}
 [D 250212 16:21:10 proxyhandlers:898] Storing origin host github-actions.nebari.dev
@@ -839,36 +839,36 @@ DEBUG:tornado.application:Trying to start mainprocess
 DEBUG:tornado.application:Started mainprocess
 [D 250212 16:21:10 proxyhandlers:729] Connection to http://localhost:34411/ready-check refused
 DEBUG:tornado.application:Connection to http://localhost:34411/ready-check refused
-[D 250212 16:21:10 process:61] Readyness: False after 0.0008137226104736328 seconds, next check in 0.01s
-DEBUG:tornado.application:Readyness: False after 0.0008137226104736328 seconds, next check in 0.01s
+[D 250212 16:21:10 process:61] Readiness: False after 0.0008137226104736328 seconds, next check in 0.01s
+DEBUG:tornado.application:Readiness: False after 0.0008137226104736328 seconds, next check in 0.01s
 [D 250212 16:21:10 proxyhandlers:729] Connection to http://localhost:34411/ready-check refused
 DEBUG:tornado.application:Connection to http://localhost:34411/ready-check refused
-[D 250212 16:21:10 process:61] Readyness: False after 0.011529922485351562 seconds, next check in 0.02s
-DEBUG:tornado.application:Readyness: False after 0.011529922485351562 seconds, next check in 0.02s
+[D 250212 16:21:10 process:61] Readiness: False after 0.011529922485351562 seconds, next check in 0.02s
+DEBUG:tornado.application:Readiness: False after 0.011529922485351562 seconds, next check in 0.02s
 [D 250212 16:21:10 proxyhandlers:729] Connection to http://localhost:34411/ready-check refused
 DEBUG:tornado.application:Connection to http://localhost:34411/ready-check refused
-[D 250212 16:21:10 process:61] Readyness: False after 0.032195091247558594 seconds, next check in 0.04s
-DEBUG:tornado.application:Readyness: False after 0.032195091247558594 seconds, next check in 0.04s
+[D 250212 16:21:10 process:61] Readiness: False after 0.032195091247558594 seconds, next check in 0.04s
+DEBUG:tornado.application:Readiness: False after 0.032195091247558594 seconds, next check in 0.04s
 [D 250212 16:21:10 proxyhandlers:729] Connection to http://localhost:34411/ready-check refused
 DEBUG:tornado.application:Connection to http://localhost:34411/ready-check refused
-[D 250212 16:21:10 process:61] Readyness: False after 0.07315802574157715 seconds, next check in 0.08s
-DEBUG:tornado.application:Readyness: False after 0.07315802574157715 seconds, next check in 0.08s
+[D 250212 16:21:10 process:61] Readiness: False after 0.07315802574157715 seconds, next check in 0.08s
+DEBUG:tornado.application:Readiness: False after 0.07315802574157715 seconds, next check in 0.08s
 [D 250212 16:21:10 proxyhandlers:729] Connection to http://localhost:34411/ready-check refused
 DEBUG:tornado.application:Connection to http://localhost:34411/ready-check refused
-[D 250212 16:21:10 process:61] Readyness: False after 0.15555882453918457 seconds, next check in 0.16s
-DEBUG:tornado.application:Readyness: False after 0.15555882453918457 seconds, next check in 0.16s
+[D 250212 16:21:10 process:61] Readiness: False after 0.15555882453918457 seconds, next check in 0.16s
+DEBUG:tornado.application:Readiness: False after 0.15555882453918457 seconds, next check in 0.16s
 [D 250212 16:21:10 proxyhandlers:729] Connection to http://localhost:34411/ready-check refused
 DEBUG:tornado.application:Connection to http://localhost:34411/ready-check refused
-[D 250212 16:21:10 process:61] Readyness: False after 0.3174402713775635 seconds, next check in 0.32s
-DEBUG:tornado.application:Readyness: False after 0.3174402713775635 seconds, next check in 0.32s
+[D 250212 16:21:10 process:61] Readiness: False after 0.3174402713775635 seconds, next check in 0.32s
+DEBUG:tornado.application:Readiness: False after 0.3174402713775635 seconds, next check in 0.32s
 [D 250212 16:21:10 proxyhandlers:729] Connection to http://localhost:34411/ready-check refused
 DEBUG:tornado.application:Connection to http://localhost:34411/ready-check refused
-[D 250212 16:21:10 process:61] Readyness: False after 0.6388866901397705 seconds, next check in 0.64s
-DEBUG:tornado.application:Readyness: False after 0.6388866901397705 seconds, next check in 0.64s
+[D 250212 16:21:10 process:61] Readiness: False after 0.6388866901397705 seconds, next check in 0.64s
+DEBUG:tornado.application:Readiness: False after 0.6388866901397705 seconds, next check in 0.64s
 [D 250212 16:21:11 proxyhandlers:726] Got code 200 back from http://localhost:34411/ready-check
 DEBUG:tornado.application:Got code 200 back from http://localhost:34411/ready-check
-[D 250212 16:21:11 process:61] Readyness: True after 1.290705680847168 seconds, next check in 1.28s
-DEBUG:tornado.application:Readyness: True after 1.290705680847168 seconds, next check in 1.28s
+[D 250212 16:21:11 process:61] Readiness: True after 1.290705680847168 seconds, next check in 1.28s
+DEBUG:tornado.application:Readiness: True after 1.290705680847168 seconds, next check in 1.28s
 [E 250212 16:21:11 proxyhandlers:797] b'2025-02-12 16:21:11,067 - bokeh_root_cmd - INFO - Starting PanelServer\n'
 ERROR:tornado.application:b'2025-02-12 16:21:11,067 - bokeh_root_cmd - INFO - Starting PanelServer\n'
 [E 250212 16:21:11 proxyhandlers:797] b'2025-02-12 16:21:11,067 - bokeh_root_cmd - DEBUG - ip = None\n'
@@ -1183,8 +1183,8 @@ ERROR:tornado.application:b'2025-02-12 16:21:12,253 - tornado.access - INFO - 20
 INFO:tornado.application:Trying to establish websocket connection to ws://localhost:34411/ws?redirects=1
 [I 250212 16:21:12 proxyhandlers:497] Websocket connection established to ws://localhost:34411/ws?redirects=1
 INFO:tornado.application:Websocket connection established to ws://localhost:34411/ws?redirects=1
-[I 250212 16:21:12 proxyhandlers:529] Client sent subprotocols: ['bokeh', 'eyJzZXNzaW9uX2lkIjogIldLeTJpN3RiRTZQa0dmdzliRWxCNWU5UEJlZk1EQlpwYnNhelVsVzhUSDBWIiwgInNlc3Npb25fZXhwaXJ5IjogMTczOTM5OTE3MSwgIl9fYmtfX3psaWJfIjogImVOcVZWbXVUb2tZWF9pdVduemFKS0Fpb3VMV1YwdkV5NEFBaklpaVoxRlJETjlMU1hBWlFsSjM5NzJsd2RwT1oxRnZ2Umt1RmM1N3o5TG5MMTNhQUFFUlozaDYzdnJaM2pJRUFZZVNVM3JVNXR0c1hoQzdiNWRxZEZsVXRrcXdFR1VTUTJhRHNqTElhRXlNWFpKZ3BNb0I4SERJNFBtUW96NW1oNkEtZ0pBa1FNaGtKWDlLUEJJOVpVaVMxZlZBVWFkNnB2XzhGU2JLaVJnZ0MzeG14SDdYM1NkNW9EN2dJVGk0RHZBSW5jZDY5dWRPRjZQelJnRjY5ajZrekh2djBOZjRoR2RZbTJfU1EwWFF3Y3B3ajc1UWhtby1YRThxTHZER3VFUnZrTVF0VWVBR3p3UVdxeFRtSUVKTmstSURqOXdBMWdRMGdCbWQ4QUJUOFRqdER0eEJnNHAwaUZCZmZ0WGNCc3dYTUl3R0ZuMlJSalhocVAtRDRkSGxxdjRlb2lZdEpjOER2N0R2TnpVWkxpdGJrMHpRRE1YeHFmejVfZVdxUG5panNxWDBYWkVtRVQ5R2JsT1A3TjJZRC1TaTdsYlVweTdqWC01X3A3VkZ4TDBpaUpxYkhETlB3aTJ0dGVmckNkbHE0bHM3aTRrZlNKcDZIMG9KNUFQSGhCQTZOenlobXRwc09pai1fZkdHNzBqOUE4OWhMSUcya3Byd1ZUdjlXMVpJQ1hZcGVVRVNrQTlLVVlBX1VudlV1dGVTM3kwZHBSRzdzSFJ6UlUzdTBEUDdiWlluYzlMczBqUS1kWDN1X050RFJPNEljSDJMYU8tamlCZFJ6Uk5QbDhnM3MxaXM1eXBqSkFkM2lWSk1LRXdKNllwZHRmZHB4M09kV1U3VFdaVFI0SGdpX3RDYVVGOW5JWGVHaUpfTERMajlvZlZyZG0tcERwMFZ3aUZwTDVJWEpMNjJtT0toSGkwSmJrcjViRy1EVG5MLVoxTWYtVk92ZkpYR01HazBORFJGS0dVRHdHWDBjQzRxck0xcURlaWNhVDQ5Mnk3VVhYWmtVeElnd05Ca01QYWNYQVJ5bldlTFIyYjR4MEFHLVhMMmJjUXFLNEw4UWZLTU1YcEtFR04yV3p2R1VYZ3VVMWNIVURFek53SHhrcUFfb3YzSmo5cFZqeDl5UWwzaHBOQnF5cl94d19GUDJyd0k3Qmd1NTNOc0xHOXBpcGxhR2dtWlRkZHN2eU5ZOHNNNVNJUnVTMmlacmxhOHNKM2tqZHppQUExNmlpWmNnT19LRnZzaXpkTXZ4MGxEd2VEUVl1VDZRa01BaktIbDlCQVFYQ3FPaEwzSUF1a0tkby1kTG52bE5ZOFRsUlQ5T1I2bzVHYWltVi1tbUt1cXpBNl9lbDV4T0pFcW1SUDVzWHFuSFZMUFlrRE5OWlFYbTRzQ0lPR0FzVmRZTW9hSlphYkhaQlRvSTJkSW0wRkZaY2I2bTk5YkNLZXdvelRTU2JvMG8wRjNMU1V3N2RTQkhnekt0eHQ2MmpFemRpbk9qdVRjeXFsLWdrQnNBUHRCVTRtUlVIN3FMZEF1V3FXWXNnOXdNRFFzdDBoYzdJZ0JFaFdnVFl3V29fU1pLSFl2ZFhtM3FEMlM1LU5Ia1J2dS1GYXBMdVhKbW9hQlZ6bEd0Z2tpZlRVcHROdWNkZTRIVl9scDBadXVyVnBIQU1ZMWdiNjg1eHd6RnZiMW4xZU5XM0ZkemlyV3daczVGMWR5S21yMFcxVU83YVpBWUFpWXZFcnFEd2VuV1lPaXFCTzdTd3pwVzVHMGxjeHFXY3prMlJPOU9Ic2hodXJQdUZLbExRUVRkVDdCLW5QTnFGYkw2YkMzUUR3Vk9yOERtQWk4bXZoc3RDbWVuMFdiUWlIeE1NSFVMUDl3cFY3ZF9JYnUta3JxUlFULXdrb19wVUk0VzRjTTF3VHJKS2M0b2dDM2czYWJFYm1UaF9VNUpIMnlZd3J2UkM4VzZjdXlremc0U0R5dVE4c1h1VXFJMjVYbUY1WUZOblhlV1hPcldUa2NHZ1pHVnVfejBPX1pOOThaRHozUnRjcEp4aVoybDFYZnN5OWxiV2xlWnNOUjJjZHJiRjlIajF6X0R5M2w5Ni1wZF94OHZKX25yN2tGZXlXSTJmVUdGZjFycFp2S0NPYkhhM3otZl9VeUVwVENwN3JCaTBEbnhoYVF1MFRfbUxxZHpUWGNOZzJHejhsMkpkOEdROC1Gd0pMaVM3M0lEWGtELVVHQTVVZlQ5WnRrZnFka3puYzM4R1hqMVZuZ3VraERGXzZYS0ZiUmxyTWQxVmJRanJXYTE0NDB6NkZ1bnVxSUdjWGcwVV9iTzBzbVJ1UkRObUJUYm8zTGVoRENFaTNRSnRzN01wcm9tRTd1Z0JEdUZlSnhVWjVFT3FWenE1cjVVNzBvTWwxTG0yS0lQNzBucGJHb0hGTEt2c1kxVDJySE9kSDJlRjFtQk0wdHYyYTdTMklza3pydFhBN2pUS0hZYTdQdjBsMWNIdFI1R2hQcXJCai11VGU1bHY1dVczblY2cFVNVDZyRlZPVHVsMGlNeGNPM3RHNGNpMFdyLTZHeU5EcGs2VXpsOVpramROVXczQjN1VkdLc05CODM5WlB0b2VObXpuaGdMVXpPNC1hR192NjlZU0pfUjVtcXpmRUYyYUo0NGJ1czNReEJuOUwtaXZ2dmphOXVsTlcyZWR0UjEtOXVmMzc3OUJmS1VVZkkifQ']
-INFO:tornado.application:Client sent subprotocols: ['bokeh', 'eyJzZXNzaW9uX2lkIjogIldLeTJpN3RiRTZQa0dmdzliRWxCNWU5UEJlZk1EQlpwYnNhelVsVzhUSDBWIiwgInNlc3Npb25fZXhwaXJ5IjogMTczOTM5OTE3MSwgIl9fYmtfX3psaWJfIjogImVOcVZWbXVUb2tZWF9pdVduemFKS0Fpb3VMV1YwdkV5NEFBaklpaVoxRlJETjlMU1hBWlFsSjM5NzJsd2RwT1oxRnZ2Umt1RmM1N3o5TG5MMTNhQUFFUlozaDYzdnJaM2pJRUFZZVNVM3JVNXR0c1hoQzdiNWRxZEZsVXRrcXdFR1VTUTJhRHNqTElhRXlNWFpKZ3BNb0I4SERJNFBtUW96NW1oNkEtZ0pBa1FNaGtKWDlLUEJJOVpVaVMxZlZBVWFkNnB2XzhGU2JLaVJnZ0MzeG14SDdYM1NkNW9EN2dJVGk0RHZBSW5jZDY5dWRPRjZQelJnRjY5ajZrekh2djBOZjRoR2RZbTJfU1EwWFF3Y3B3ajc1UWhtby1YRThxTHZER3VFUnZrTVF0VWVBR3p3UVdxeFRtSUVKTmstSURqOXdBMWdRMGdCbWQ4QUJUOFRqdER0eEJnNHAwaUZCZmZ0WGNCc3dYTUl3R0ZuMlJSalhocVAtRDRkSGxxdjRlb2lZdEpjOER2N0R2TnpVWkxpdGJrMHpRRE1YeHFmejVfZVdxUG5panNxWDBYWkVtRVQ5R2JsT1A3TjJZRC1TaTdsYlVweTdqWC01X3A3VkZ4TDBpaUpxYkhETlB3aTJ0dGVmckNkbHE0bHM3aTRrZlNKcDZIMG9KNUFQSGhCQTZOenlobXRwc09pai1fZkdHNzBqOUE4OWhMSUcya3Byd1ZUdjlXMVpJQ1hZcGVVRVNrQTlLVVlBX1VudlV1dGVTM3kwZHBSRzdzSFJ6UlUzdTBEUDdiWlluYzlMczBqUS1kWDN1X050RFJPNEljSDJMYU8tamlCZFJ6Uk5QbDhnM3MxaXM1eXBqSkFkM2lWSk1LRXdKNllwZHRmZHB4M09kV1U3VFdaVFI0SGdpX3RDYVVGOW5JWGVHaUpfTERMajlvZlZyZG0tcERwMFZ3aUZwTDVJWEpMNjJtT0toSGkwSmJrcjViRy1EVG5MLVoxTWYtVk92ZkpYR01HazBORFJGS0dVRHdHWDBjQzRxck0xcURlaWNhVDQ5Mnk3VVhYWmtVeElnd05Ca01QYWNYQVJ5bldlTFIyYjR4MEFHLVhMMmJjUXFLNEw4UWZLTU1YcEtFR04yV3p2R1VYZ3VVMWNIVURFek53SHhrcUFfb3YzSmo5cFZqeDl5UWwzaHBOQnF5cl94d19GUDJyd0k3Qmd1NTNOc0xHOXBpcGxhR2dtWlRkZHN2eU5ZOHNNNVNJUnVTMmlacmxhOHNKM2tqZHppQUExNmlpWmNnT19LRnZzaXpkTXZ4MGxEd2VEUVl1VDZRa01BaktIbDlCQVFYQ3FPaEwzSUF1a0tkby1kTG52bE5ZOFRsUlQ5T1I2bzVHYWltVi1tbUt1cXpBNl9lbDV4T0pFcW1SUDVzWHFuSFZMUFlrRE5OWlFYbTRzQ0lPR0FzVmRZTW9hSlphYkhaQlRvSTJkSW0wRkZaY2I2bTk5YkNLZXdvelRTU2JvMG8wRjNMU1V3N2RTQkhnekt0eHQ2MmpFemRpbk9qdVRjeXFsLWdrQnNBUHRCVTRtUlVIN3FMZEF1V3FXWXNnOXdNRFFzdDBoYzdJZ0JFaFdnVFl3V29fU1pLSFl2ZFhtM3FEMlM1LU5Ia1J2dS1GYXBMdVhKbW9hQlZ6bEd0Z2tpZlRVcHROdWNkZTRIVl9scDBadXVyVnBIQU1ZMWdiNjg1eHd6RnZiMW4xZU5XM0ZkemlyV3daczVGMWR5S21yMFcxVU83YVpBWUFpWXZFcnFEd2VuV1lPaXFCTzdTd3pwVzVHMGxjeHFXY3prMlJPOU9Ic2hodXJQdUZLbExRUVRkVDdCLW5QTnFGYkw2YkMzUUR3Vk9yOERtQWk4bXZoc3RDbWVuMFdiUWlIeE1NSFVMUDl3cFY3ZF9JYnUta3JxUlFULXdrb19wVUk0VzRjTTF3VHJKS2M0b2dDM2czYWJFYm1UaF9VNUpIMnlZd3J2UkM4VzZjdXlremc0U0R5dVE4c1h1VXFJMjVYbUY1WUZOblhlV1hPcldUa2NHZ1pHVnVfejBPX1pOOThaRHozUnRjcEp4aVoybDFYZnN5OWxiV2xlWnNOUjJjZHJiRjlIajF6X0R5M2w5Ni1wZF94OHZKX25yN2tGZXlXSTJmVUdGZjFycFp2S0NPYkhhM3otZl9VeUVwVENwN3JCaTBEbnhoYVF1MFRfbUxxZHpUWGNOZzJHejhsMkpkOEdROC1Gd0pMaVM3M0lEWGtELVVHQTVVZlQ5WnRrZnFka3puYzM4R1hqMVZuZ3VraERGXzZYS0ZiUmxyTWQxVmJRanJXYTE0NDB6NkZ1bnVxSUdjWGcwVV9iTzBzbVJ1UkRObUJUYm8zTGVoRENFaTNRSnRzN01wcm9tRTd1Z0JEdUZlSnhVWjVFT3FWenE1cjVVNzBvTWwxTG0yS0lQNzBucGJHb0hGTEt2c1kxVDJySE9kSDJlRjFtQk0wdHYyYTdTMklza3pydFhBN2pUS0hZYTdQdjBsMWNIdFI1R2hQcXJCai11VGU1bHY1dVczblY2cFVNVDZyRlZPVHVsMGlNeGNPM3RHNGNpMFdyLTZHeU5EcGs2VXpsOVpramROVXczQjN1VkdLc05CODM5WlB0b2VObXpuaGdMVXpPNC1hR192NjlZU0pfUjVtcXpmRUYyYUo0NGJ1czNReEJuOUwtaXZ2dmphOXVsTlcyZWR0UjEtOXVmMzc3OUJmS1VVZkkifQ']
+[I 250212 16:21:12 proxyhandlers:529] Client sent subprotocols: ['bokeh', 'eyJzZXNzaW9uX2lkIjogIldLeTJpN3RiRTZQa0dmdzliRWxCNWU5UEJlZk1EQlpwYnNhelVsVzhUSDBWIiwgInNlc3Npb25fZXhwaXJ5IjogMTczOTM5OTE3MSwgIl9fYmtfX3psaWJfIjogImVOcVZWbXVUb2tZWF9pdVduemFKS0Fpb3VMV1YwdkV5NEFBaklpaVoxRlJETjlMU1hBWlFsSjM5NzJsd2RwT1oxRnZ2Umt1RmM1N3o5TG5MMTNhQUFFUlozaDYzdnJaM2pJRUFZZVNVM3JVNXR0c1hoQzdiNWRxZEZsVXRrcXdFR1VTUTJhRHNqTElhRXlNWFpKZ3BNb0I4SERJNFBtUW96NW1oNkEtZ0pBa1FNaGtKWDlLUEJJOVpVaVMxZlZBVWFkNnB2XzhGU2JLaVJnZ0MzeG14SDdYM1NkNW9EN2dJVGk0RHZBSW5jZDY5dWRPRjZQelJnRjY5ajZrekh2djBOZjRoR2RZbTJfU1EwWFF3Y3B3ajc1UWhtby1YRThxTHZER3VFUnZrTVF0VWVBR3p3UVdxeFRtSUVKTmstSURqOXdBMWdRMGdCbWQ4QUJUOFRqdER0eEJnNHAwaUZCZmZ0WGNCc3dYTUl3R0ZuMlJSalhocVAtRDRkSGxxdjRlb2lZdEpjOER2N0R2TnpVWkxpdGJrMHpRRE1YeHFmejVfZVdxUG5panNxWDBYWkVtRVQ5R2JsT1A3TjJZRC1TaTdsYlVweTdqWC01X3A3VkZ4TDBpaUpxYkhETlB3aTJ0dGVmckNkbHE0bHM3aTRrZlNKcDZIMG9KNUFQSGhCQTZOenlobXRwc09pai1fZkdHNzBqOUE4OWhMSUcya3Byd1ZUdjlXMVpJQ1hZcGVVRVNrQTlLVVlBX1VudlV1dGVTM3kwZHBSRzdzSFJ6UlUzdTBEUDdiWlluYzlMczBqUS1kWDN1X050RFJPNEljSDJMYU8tamlCZFJ6Uk5QbDhnM3MxaXM1eXBqSkFkM2lWSk1LRXdKNllwZHRmZHB4M09kV1U3VFdaVFI0SGdpX3RDYVVGOW5JWGVHaUpfTERMajlvZlZyZG0tcERwMFZ3aUZwTDVJWEpMNjJtT0toSGkwSmJrcjViRy1EVG5MLVoxTWYtVk92ZkpYR01HazBORFJGS0dVRHdHWDBjQzRxck0xcURlaWNhVDQ5Mnk3VVhYWmtVeElnd05Ca01QYWNYQVJ5bldlTFItYjR4MEFHLVhMMmJjUXFLNEw4UWZLTU1YcEtFR04yV3p2R1VYZ3VVMWNIVURFek53SHhrcUFfb3YzSmo5cFZqeDl5UWwzaHBOQnF5cl94d19GOODJyd0k3Qmd1NTNOc0xHOXBpcGxhR2dtWlRkZHN2eU5ZOHNNNVNJUnVTMmlacmxhOHNKM2tqZHppQUExNmlpWmNnT19LRnZzaXpkTXZ4MGxEd2VEUVl1VDZRa01BaktIbDlCQVFYQ3FPaEwzSUF1a0tkby1kTG52bE5ZOFRsUlQ5T1I2bzVHYWltVi1tbUt1cXpBNl9lbDV4T0pFcW1SUDVzWHFuSFZMUFlrRE5OWlFYbTRzQ0lPR0FzVmRZTW9hSlphYkhaQlRvSTJkSW0wRkZaY2I2bTk5YkNLZXdvelRTU2JvMG8wRjNMU1V3N2RTQkhnekt0eHQ2MmpFemRpbk9qdVRjeXFsLWdrQnNBUHRCVTRtUlVIN3FMZEF1V3FXWXNnOXdNRFFzdDBoYzdJZ0JFaFdnVFl3V29fU1pLSFl2ZFhtM3FEMlM1LU5Ia1J2dS1GYXBMdVhKbW9hQlZ6bEd0Z2tpZlRVcHROdWNkZTRIVl9scDBadXVyVnBIQU1ZMWdiNjg1eHd6RnZiMW4xZU5XM0ZkemlyV3daczVGMWR5S21yMFcxVU83YVpBWUFpWXZFcnFEd2VuV1lPaXFCTzdTd3pwVzVHMGxjeHFXY3prMlJPOU9Ic2hodXJQdUZLbExRUVRkVDdCLW5QTnFGYkw2YkMzUUR3Vk9yOERtQWk4bXZoc3RDbWVuMFdiUWlIeE1NSFVMUDl3cFY3ZF9JYnUta3JxUlFULLXdrb19wVUk0VzRjTTF3VHJKS2M0b2dDM2czYWJFYm1UaF9VNUpIMnlZd3J2UkM4VzZjdXlremc0U0R5dVE4c1h1VXFJMjVYbUY1WUZOblhlV1hPcldUa2NHZ1pHVnVfejBPX1pOOThaRHozUnRjcEp4aVoybDFYZnN5OWxiV2xlWnNOUjJjZHJiRjlIajF6X0R5M2w5Ni1wZF94OHZKX25yN2tGZXlXSTJmVUdGZjFycFp2S0NPYkhhM3otZl9VeUVwVENwN3JCaTBEbnhoYVF1MFRfbUxxZHpUWGNOZzJHejhsMkpkOEdROC1Gd0pMaVM3M0lEWGtELVVHQTVVZlQ5WnRrZnFka3puYzM4R1hqMVZuZ3VraERGXzZYS0ZiUmxyTWQxVmJRanJXYTE0NDB6NkZ1bnVxSUdjWGcwVV9iTzBzbVJ1UkRObUJUYm8zTGVoRENFaTNRSnRzN01wcm9tRTd1Z0JEdUZlSnhVWjVFT3FWenE1cjVVNzBvTWwxTG0yS0lQNzBucGJHb0hGTEt2c1kxVDJySE9kSDJlRjFtQk0wdHYyYTdTMklza3pydFhBN2pUS0hZYTdQdjBsMWNIdFI1R2hQcXJCai11VGU1bHY1dVczblY2cFVNVDZyRlZPVHVsMGlNeGNPM3RHNGNpMFdyLTZHeU5EcGs2VXpsOVpramROVXczQjN1VkdLc05CODM5WlB0b2VObXpuaGdMVXpPNC1hR192NjlZU0pfUjVtcXpmRUYyYUo0NGJ1czNReEJuOUwtaXZ2dmphOXVsTlcyZWR0UjEtOXVmMzc3OUJmS1VVZkkifQ']
+INFO:tornado.application:Client sent subprotocols: ['bokeh', 'eyJzZXNzaW9uX2lkIjogIldLeTJpN3RiRTZQa0dmdzliRWxCNWU5UEJlZk1EQlpwYnNhelVsVzhUSDBWIiwgInNlc3Npb25fZXhwaXJ5IjogMTczOTM5OTE3MSwgIl9fYmtfX3psaWJfIjogImVOcVZWbXVUb2tZWF9pdVduemFKS0Fpb3VMV1YwdkV5NEFBaklpaVoxRlJETjlMU1hBWlFsSjM5NzJsd2RwT1oxRnZ2Umt1RmM1N3o5TG5MMTNhQUFFUlozaDYzdnJaM2pJRUFZZVNVM3JVNXR0c1hoQzdiNWRxZEZsVXRrcXdFR1VTUTJhRHNqTElhRXlNWFpKZ3BNb0I4SERJNFBtUW96NW1oNkEtZ0pBa1FNaGtKWDlLUEJJOVpVaVMxZlZBVWFkNnB2XzhGU2JLaVJnZ0MzeG14SDdYM1NkNW9EN2dJVGk0RHZBSW5jZDY5dWRPRjZQelJnRjY5ajZrekh2djBOZjRoR2RZbTJfU1EwWFF3Y3B3ajc1UWhtby1YRThxTHZER3VFUnZrTVF0VWVBR3p3UVdxeFRtSUVKTmstSURqOXdBMWdRMGdCbWQ4QUJUOFRqdER0eEJnNHAwaUZCZmZ0WGNCc3dYTUl3R0ZuMlJSalhocVAtRDRkSGxxdjRlb2lZdEpjOER2N0R2TnpVWkxpdGJrMHpRRE1YeHFmejVfZVdxUG5panNxWDBYWkVtRVQ5R2JsT1A3TjJZRC1TaTdsYlVweTdqWC01X3A3VkZ4TDBpaUpxYkhETlB3aTJ0dGVmckNkbHE0bHM3aTRrZlNKcDZIMG9KNUFQSGhCQTZOenlobXRwc09pai1fZkdHNzBqOUE4OWhMSUcya3Byd1ZUdjlXMVpJQ1hZcGVVRVNrQTlLVVlBX1VudlV1dGVTM3kwZHBSRzdzSFJ6UlUzdTBEUDdiWlluYzlMczBqUS1kWDN1X050RFJPNEljSDJMYU8tamlCZFJ6Uk5QbDhnM3MxaXM1eXBqSkFkM2lWSk1LRXdKNllwZHRmZHB4M09kV1U3VFdaVFI0SGdpX3RDYVVGOW5JWGVHaUpfTERMajlvZlZyZG0tcERwMFZ3aUZwTDVJWEpMNjJtT0toSGkwSmJrcjViRy1EVG5MLVoxTWYtVk92ZkpYR01HazBORFJGS0dVRHdHWDBjQzRxck0xcURlaWNhVDQ5Mnk3VVhYWmtVeElnd05Ca01QYWNYQVJ5bldlTFItYjR4MEFHLVhMMmJjUXFLNEw4UWZLTU1YcEtFR04yV3p2R1VYZ3VVMWNIVURFek53SHhrcUFfb3YzSmo5cFZqeDl5UWwzaHBOQnF5cl94d19GOODJyd0k3Qmd1NTNOc0xHOXBpcGxhR2dtWlRkZHN2eU5ZOHNNNVNJUnVTMmlacmxhOHNKM2tqZHppQUExNmlpWmNnT19LRnZzaXpkTXZ4MGxEd2VEUVl1VDZRa01BaktIbDlCQVFYQ3FPaEwzSUF1a0tkby1kTG52bE5ZOFRsUlQ5T1I2bzVHYWltVi1tbUt1cXpBNl9lbDV4T0pFcW1SUDVzWHFuSFZMUFlrRE5OWlFYbTRzQ0lPR0FzVmRZTW9hSlphYkhaQlRvSTJkSW0wRkZaY2I2bTk5YkNLZXdvelRTU2JvMG8wRjNMU1V3N2RTQkhnekt0eHQ2MmpFemRpbk9qdVRjeXFsLWdrQnNBUHRCVTRtUlVIN3FMZEF1V3FXWXNnOXdNRFFzdDBoYzdJZ0JFaFdnVFl3V29fU1pLSFl2ZFhtM3FEMlM1LU5Ia1J2dS1GYXBMdVhKbW9hQlZ6bEd0Z2tpZlRVcHROdWNkZTRIVl9scDBadXVyVnBIQU1ZMWdiNjg1eHd6RnZiMW4xZU5XM0ZkemlyV3daczVGMWR5S21yMFcxVU83YVpBWUFpWXZFcnFEd2VuV1lPaXFCTzdTd3pwVzVHMGxjeHFXY3prMlJPOU9Ic2hodXJQdUZLbExRUVRkVDdCLW5QTnFGYkw2YkMzUUR3Vk9yOERtQWk4bXZoc3RDbWVuMFdiUWlIeE1NSFVMUDl3cFY3ZF9JYnUta3JxUlFULLXdrb19wVUk0VzRjTTF3VHJKS2M0b2dDM2czYWJFYm1UaF9VNUpIMnlZd3J2UkM4VzZjdXlremc0U0R5dVE4c1h1VXFJMjVYbUY1WUZOblhlV1hPcldUa2NHZ1pHVnVfejBPX1pOOThaRHozUnRjcEp4aVoybDFYZnN5OWxiV2xlWnNOUjJjZHJiRjlIajF6X0R5M2w5Ni1wZF94OHZKX25yN2tGZXlXSTJmVUdGZjFycFp2S0NPYkhhM3otZl9VeUVwVENwN3JCaTBEbnhoYVF1MFRfbUxxZHpUWGNOZzJHejhsMkpkOEdROC1Gd0pMaVM3M0lEWGtELVVHQTVVZlQ5WnRrZnFka3puYzM4R1hqMVZuZ3VraERGXzZYS0ZiUmxyTWQxVmJRanJXYTE0NDB6NkZ1bnVxSUdjWGcwVV9iTzBzbVJ1UkRObUJUYm8zTGVoRENFaTNRSnRzN01wcm9tRTd1Z0JEdUZlSnhVWjVFT3FWenE1cjVVNzBvTWwxTG0yS0lQNzBucGJHb0hGTEt2c1kxVDJySE9kSDJlRjFtQk0wdHYyYTdTMklza3pydFhBN2pUS0hZYTdQdjBsMWNIdFI1R2hQcXJCai11VGU1bHY1dVczblY2cFVNVDZyRlZPVHVsMGlNeGNPM3RHNGNpMFdyLTZHeU5EcGs2VXpsOVpramROVXczQjN1VkdLc05CODM5WlB0b2VObXpuaGdMVXpPNC1hR192NjlZU0pfUjVtcXpmRUYyYUo0NGJ1czNReEJuOUwtaXZ2dmphOXVsTlcyZWR0UjEtOXVmMzc3OUJmS1VVZkkifQ']
 [D 250212 16:21:12 proxyhandlers:898] Storing origin host github-actions.nebari.dev
 DEBUG:tornado.application:Storing origin host github-actions.nebari.dev
 [E 250212 16:21:12 proxyhandlers:797] b'2025-02-12 16:21:12,481 - tornado.access - INFO - 101 GET /ws?redirects=1 (::1) 0.33ms\n'
@@ -1662,13 +1662,13 @@ Container: conda-store-worker
 [2025-02-12 22:15:05,185: WARNING/ForkPoolWorker-2] Locking dependencies for ['linux-64']...
 [2025-02-12 22:15:05,185: INFO/ForkPoolWorker-2] linux-64 using specs ['panel', 'jhsingle-native-proxy', 'bokeh-root-cmd', 'ipykernel']
 [2025-02-12 22:15:12,836: WARNING/ForkPoolWorker-2]  - Install lock using:
-[2025-02-12 22:15:12,836: WARNING/ForkPoolWorker-2]  
+[2025-02-12 22:15:12,836: WARNING/ForkPoolWorker-2]
 [2025-02-12 22:15:12,836: WARNING/ForkPoolWorker-2] conda-lock install --name YOURENV /tmp/tmpcwidq1bb/conda-lock.yaml
 [2025-02-12 22:15:12,836: WARNING/ForkPoolWorker-2] Rendering lockfile(s) for linux-64...
 [2025-02-12 22:15:12,837: WARNING/ForkPoolWorker-2]  - Install lock using :
-[2025-02-12 22:15:12,837: WARNING/ForkPoolWorker-2]  
+[2025-02-12 22:15:12,837: WARNING/ForkPoolWorker-2]
 [2025-02-12 22:15:12,837: WARNING/ForkPoolWorker-2] conda create --name YOURENV --file conda-linux-64.lock
-/opt/conda/lib/python3.12/site-packages/conda/base/context.py:198: FutureWarning: Adding 'defaults' to channel list implicitly is deprecated and will be removed in 25.3. 
+/opt/conda/lib/python3.12/site-packages/conda/base/context.py:198: FutureWarning: Adding 'defaults' to channel list implicitly is deprecated and will be removed in 25.3.
 
 To remove this warning, please choose a default channel explicitly with conda's regular configuration system, e.g. by adding 'defaults' to the list of channels:
 
@@ -1838,21 +1838,21 @@ File: proxy-d65f57c86-x82t7.txt
 ---
 
 10.244.0.48	dev	proxy-d65f57c86-x82t7
-22:12:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
-22:13:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
-22:14:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
-22:15:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
-22:16:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
+22:12:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
+22:13:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
+22:14:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
+22:15:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
+22:16:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
 22:16:56.397 [ConfigProxy] [32minfo[39m: Adding route /user/andy/my-panel-app-git -> http://10.244.0.56:8888
 22:16:56.397 [ConfigProxy] [32minfo[39m: Route added /user/andy/my-panel-app-git -> http://10.244.0.56:8888
-22:16:56.397 [ConfigProxy] [32minfo[39m: 201 POST /api/routes/user/andy/my-panel-app-git 
-22:17:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
-22:18:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
-22:19:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
+22:16:56.397 [ConfigProxy] [32minfo[39m: 201 POST /api/routes/user/andy/my-panel-app-git
+22:17:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
+22:18:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
+22:19:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
 22:19:59.347 [ConfigProxy] [32minfo[39m: Removing route /user/andy/my-panel-app-git
-22:19:59.347 [ConfigProxy] [32minfo[39m: 204 DELETE /api/routes/user/andy/my-panel-app-git 
+22:19:59.347 [ConfigProxy] [32minfo[39m: 204 DELETE /api/routes/user/andy/my-panel-app-git
 22:20:06.762 [ConfigProxy] [32minfo[39m: Adding route /user/andy/my-panel-app-git -> http://10.244.0.57:8888
 22:20:06.762 [ConfigProxy] [32minfo[39m: Route added /user/andy/my-panel-app-git -> http://10.244.0.57:8888
-22:20:06.762 [ConfigProxy] [32minfo[39m: 201 POST /api/routes/user/andy/my-panel-app-git 
-22:20:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes 
+22:20:06.762 [ConfigProxy] [32minfo[39m: 201 POST /api/routes/user/andy/my-panel-app-git
+22:20:41.335 [ConfigProxy] [32minfo[39m: 200 GET /api/routes
 22:21:41.336 [ConfigProxy] [32minfo[39m: 200 GET /api/routes"""
