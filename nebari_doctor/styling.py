@@ -52,6 +52,41 @@ def format_code(code: str, language: str = "yaml") -> Syntax:
     return Syntax(code, language, theme="monokai", line_numbers=True, word_wrap=True)
 
 
+def truncate_long_text(message: str, max_lines: int = 10, console_width: int = 100) -> str:
+    """Truncate long text to a maximum number of console lines
+    
+    Args:
+        message (str): The message to truncate
+        max_lines (int): Maximum number of lines to display
+        console_width (int): Approximate width of the console in characters
+        
+    Returns:
+        str: The truncated message with indication if truncated
+    """
+    # First split by actual newlines
+    lines = message.split('\n')
+    
+    # Then handle long lines by wrapping them
+    wrapped_lines = []
+    for line in lines:
+        # Approximate wrapping - subtract some chars for padding and borders
+        effective_width = console_width - 10
+        if len(line) > effective_width:
+            # Split long lines into chunks of approximately console_width
+            chunks = [line[i:i+effective_width] for i in range(0, len(line), effective_width)]
+            wrapped_lines.extend(chunks)
+        else:
+            wrapped_lines.append(line)
+    
+    # Apply truncation if needed
+    if len(wrapped_lines) > max_lines:
+        truncated = wrapped_lines[:max_lines]
+        truncated_message = '\n'.join(truncated)
+        truncated_message += f"\n\n[italic]... (output truncated, {len(wrapped_lines) - max_lines} more lines)[/italic]"
+        return truncated_message
+    else:
+        return '\n'.join(wrapped_lines)
+
 def display_message(
     message: str, message_type: MessageType, title: Optional[str] = None
 ) -> None:
@@ -68,8 +103,10 @@ def display_message(
         console.print(panel)
 
     elif message_type == MessageType.USER:
+        # Truncate user messages if they're very long
+        truncated_message = truncate_long_text(message, max_lines=10, console_width=console.width)
         panel = Panel(
-            message,
+            truncated_message,
             title=title or "👤 User",
             title_align="left",
             border_style="user",
@@ -79,14 +116,8 @@ def display_message(
         console.print(panel)
 
     elif message_type == MessageType.TOOL:
-        # Limit tool output to 10 lines
-        lines = message.split('\n')
-        if len(lines) > 10:
-            truncated_message = '\n'.join(lines[:10])
-            truncated_message += f"\n\n[italic]... (output truncated, {len(lines) - 10} more lines)[/italic]"
-        else:
-            truncated_message = message
-            
+        # Truncate tool output
+        truncated_message = truncate_long_text(message, max_lines=10, console_width=console.width)
         panel = Panel(
             truncated_message,
             title=title or "🔧 Tool Output",
