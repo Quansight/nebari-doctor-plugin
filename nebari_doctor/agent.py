@@ -11,7 +11,6 @@ from nebari_doctor.styling import (
     display_header,
     display_message,
     get_user_input,
-    loading_spinner,
 )
 from nebari_doctor.tools.get_nebari_config import make_get_nebari_config_tool
 from nebari_doctor.tools.get_pod_logs import (
@@ -109,10 +108,10 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
             message_user,
         ]
         for tool in [
-                    make_get_nebari_config_tool(nebari_config_path),
-                    make_get_nebari_pod_names_tool(nebari_config_path),
-                    get_nebari_pod_logs_tool,
-                ]:
+            make_get_nebari_config_tool(nebari_config_path),
+            make_get_nebari_pod_names_tool(nebari_config_path),
+            get_nebari_pod_logs_tool,
+        ]:
             if nebari_config_path:
                 tools.append(tool_output_wrapper(tool))
         if not nebari_config_path:
@@ -146,18 +145,21 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
 
         # Main conversation loop
         while True:
+            # TODO: Stream the LLM message to a pnael
             # Show thinking message
             display_message("Thinking about your question...", MessageType.SYSTEM)
-            
+
             # Run the agent
             try:
                 result = agent.run_sync(user_input)
             except Exception as e:
                 display_message(f"Error while processing: {str(e)}", MessageType.ERROR)
-                user_input = get_user_input("Would you like to try again with a different question?")
+                user_input = get_user_input(
+                    "Would you like to try again with a different question?"
+                )
                 continue
-            
-            latest_result = result.data            
+
+            latest_result = result.data
             user_input = message_user(latest_result.message)
             display_message(user_input, MessageType.USER)
 

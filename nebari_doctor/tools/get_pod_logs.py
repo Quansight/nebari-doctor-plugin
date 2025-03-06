@@ -50,7 +50,7 @@ def get_nebari_pod_logs_tool(
             )
         except kubernetes.client.exceptions.ApiException as e:
             logs[pod_name] = f"Error: {e.reason}"
-    return logs
+    return str(logs)
 
 
 def make_get_nebari_pod_names_tool(config_filepath: pathlib.Path) -> str:

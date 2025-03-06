@@ -2,15 +2,14 @@
 Styling utilities for Nebari Doctor CLI interface.
 """
 
+import contextlib
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-import contextlib
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Prompt
-from rich.spinner import Spinner
 from rich.syntax import Syntax
 from rich.table import Table
 from rich.theme import Theme
@@ -52,20 +51,22 @@ def format_code(code: str, language: str = "yaml") -> Syntax:
     return Syntax(code, language, theme="monokai", line_numbers=True, word_wrap=True)
 
 
-def truncate_long_text(message: str, max_lines: int = 10, console_width: int = 100) -> str:
+def truncate_long_text(
+    message: str, max_lines: int = 10, console_width: int = 100
+) -> str:
     """Truncate long text to a maximum number of console lines
-    
+
     Args:
         message (str): The message to truncate
         max_lines (int): Maximum number of lines to display
         console_width (int): Approximate width of the console in characters
-        
+
     Returns:
         str: The truncated message with indication if truncated
     """
     # First split by actual newlines
-    lines = message.split('\n')
-    
+    lines = message.split("\n")
+
     # Then handle long lines by wrapping them
     wrapped_lines = []
     for line in lines:
@@ -73,19 +74,23 @@ def truncate_long_text(message: str, max_lines: int = 10, console_width: int = 1
         effective_width = console_width - 10
         if len(line) > effective_width:
             # Split long lines into chunks of approximately console_width
-            chunks = [line[i:i+effective_width] for i in range(0, len(line), effective_width)]
+            chunks = [
+                line[i : i + effective_width]
+                for i in range(0, len(line), effective_width)
+            ]
             wrapped_lines.extend(chunks)
         else:
             wrapped_lines.append(line)
-    
+
     # Apply truncation if needed
     if len(wrapped_lines) > max_lines:
         truncated = wrapped_lines[:max_lines]
-        truncated_message = '\n'.join(truncated)
+        truncated_message = "\n".join(truncated)
         truncated_message += f"\n\n[italic]... (output truncated, {len(wrapped_lines) - max_lines} more lines)[/italic]"
         return truncated_message
     else:
-        return '\n'.join(wrapped_lines)
+        return "\n".join(wrapped_lines)
+
 
 def display_message(
     message: str, message_type: MessageType, title: Optional[str] = None
@@ -104,7 +109,9 @@ def display_message(
 
     elif message_type == MessageType.USER:
         # Truncate user messages if they're very long
-        truncated_message = truncate_long_text(message, max_lines=10, console_width=console.width)
+        truncated_message = truncate_long_text(
+            message, max_lines=10, console_width=console.width
+        )
         panel = Panel(
             truncated_message,
             title=title or "👤 User",
@@ -117,7 +124,9 @@ def display_message(
 
     elif message_type == MessageType.TOOL:
         # Truncate tool output
-        truncated_message = truncate_long_text(message, max_lines=10, console_width=console.width)
+        truncated_message = truncate_long_text(
+            message, max_lines=10, console_width=console.width
+        )
         panel = Panel(
             truncated_message,
             title=title or "🔧 Tool Output",
@@ -131,7 +140,7 @@ def display_message(
 
     elif message_type == MessageType.SYSTEM:
         console.print(f"[info]{message}[/info]")
-    
+
     elif message_type == MessageType.WARNING:
         panel = Panel(
             message,
@@ -155,7 +164,7 @@ def display_message(
         console.print(panel)
 
 
-def get_user_input(prompt_text: str = "What would you like to know?") -> str:
+def get_user_input(prompt_text: str = "👤 User") -> str:
     """Get input from the user with styled prompt"""
     return Prompt.ask(f"[prompt]{prompt_text}[/prompt]")
 

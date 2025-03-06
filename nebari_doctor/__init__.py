@@ -6,7 +6,7 @@ from nebari.hookspecs import hookimpl
 from nebari_doctor.agent import INITIAL_USER_PROMPT, run_agent  # noqa: F401
 
 HERE = pathlib.Path(__file__).parent
-TEST_DATA_DIR = HERE.parent / "test_data" / "data"
+TEST_DATA_DIR = HERE.parent / "tests" / "test_data"
 
 
 @hookimpl
