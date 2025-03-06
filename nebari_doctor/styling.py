@@ -79,8 +79,16 @@ def display_message(
         console.print(panel)
 
     elif message_type == MessageType.TOOL:
+        # Limit tool output to 10 lines
+        lines = message.split('\n')
+        if len(lines) > 10:
+            truncated_message = '\n'.join(lines[:10])
+            truncated_message += f"\n\n[italic]... (output truncated, {len(lines) - 10} more lines)[/italic]"
+        else:
+            truncated_message = message
+            
         panel = Panel(
-            message,
+            truncated_message,
             title=title or "🔧 Tool Output",
             title_align="left",
             border_style="tool_name",
