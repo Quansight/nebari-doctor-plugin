@@ -146,10 +146,9 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
 
         # Main conversation loop
         while True:
-            # Show loading spinner while waiting for LLM response
-            # TODO: stream LLM response to console
-            # with loading_spinner("Thinking about your question..."):
-            result = agent.run_sync(user_input)  
+            # Show a simple message instead of a spinner since run_sync may use threading
+            display_message("Thinking about your question...", MessageType.SYSTEM)
+            result = agent.run_sync(user_input)
             
             latest_result = result.data            
             user_input = message_user(latest_result.message)
