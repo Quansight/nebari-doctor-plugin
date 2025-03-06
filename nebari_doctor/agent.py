@@ -11,6 +11,7 @@ from nebari_doctor.styling import (
     display_header,
     display_message,
     get_user_input,
+    loading_spinner,
 )
 from nebari_doctor.tools.get_nebari_config import make_get_nebari_config_tool
 from nebari_doctor.tools.get_pod_logs import (
@@ -145,8 +146,11 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
 
         # Main conversation loop
         while True:
-            result = agent.run_sync(user_input)  
-            latest_result = result.data
+            # Show loading spinner while waiting for LLM response
+            with loading_spinner("Thinking about your question..."):
+                result = agent.run_sync(user_input)  
+                latest_result = result.data
+            
             user_input = message_user(latest_result.message)
             display_message(user_input, MessageType.USER)
 

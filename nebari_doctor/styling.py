@@ -5,10 +5,12 @@ Styling utilities for Nebari Doctor CLI interface.
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
+import contextlib
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Prompt
+from rich.spinner import Spinner
 from rich.syntax import Syntax
 from rich.table import Table
 from rich.theme import Theme
@@ -124,6 +126,13 @@ def display_header(title: str) -> None:
     console.print()
     console.rule(f"[header]{title}[/header]")
     console.print()
+
+
+@contextlib.contextmanager
+def loading_spinner(text: str = "Thinking..."):
+    """Display a loading spinner while waiting for an operation to complete"""
+    with console.status(f"[info]{text}[/info]", spinner="dots") as status:
+        yield status
 
 
 def display_tool_list(tools: List[Dict[str, Any]]) -> None:
