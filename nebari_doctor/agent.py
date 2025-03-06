@@ -100,7 +100,7 @@ def run_agent(prompt: str, nebari_config_path: pathlib.Path) -> str:
 
         # Show introduction
         display_message(USER_PROMPT, MessageType.SYSTEM)
-        show_tools = True  # questionary.confirm("Would you like to see information about available tools?").ask()
+        show_tools = True
 
         if show_tools:
             display_tool_info(tools)
