@@ -36,6 +36,7 @@ def mock_agent():
         # Mock the run_sync method
         result = MagicMock()
         result.data = ChatResponse(message="Test agent response")
+        result.new_messages.return_value = []
         agent_instance.run_sync.return_value = result
         
         yield agent_instance
@@ -82,10 +83,17 @@ def test_message_user(mock_display_message, mock_get_user_input):
 
 
 @patch("nebari_doctor.agent.display_header")
-def test_run_agent_with_input(mock_display_header, mock_display_message, mock_get_user_input, mock_agent):
+@patch("nebari_doctor.agent.display_tool_info")
+def test_run_agent_with_input(mock_display_tool_info, mock_display_header, mock_display_message, mock_get_user_input, mock_agent):
     """Test running the agent with initial user input"""
+    # Mock KeyboardInterrupt to exit the infinite loop
+    mock_agent.run_sync.side_effect = KeyboardInterrupt
+    
     # Run the agent with initial input
-    run_agent(user_input="Initial input")
+    try:
+        run_agent(user_input="Initial input")
+    except KeyboardInterrupt:
+        pass
     
     # Check that display_header was called
     mock_display_header.assert_called_once()
@@ -98,10 +106,17 @@ def test_run_agent_with_input(mock_display_header, mock_display_message, mock_ge
 
 
 @patch("nebari_doctor.agent.display_header")
-def test_run_agent_without_input(mock_display_header, mock_display_message, mock_get_user_input, mock_agent):
+@patch("nebari_doctor.agent.display_tool_info")
+def test_run_agent_without_input(mock_display_tool_info, mock_display_header, mock_display_message, mock_get_user_input, mock_agent):
     """Test running the agent without initial user input"""
+    # Mock KeyboardInterrupt to exit the infinite loop
+    mock_agent.run_sync.side_effect = KeyboardInterrupt
+    
     # Run the agent without initial input
-    run_agent()
+    try:
+        run_agent()
+    except KeyboardInterrupt:
+        pass
     
     # Check that get_user_input was called to get the initial input
     mock_get_user_input.assert_called_once()
@@ -111,13 +126,17 @@ def test_run_agent_without_input(mock_display_header, mock_display_message, mock
 
 
 @patch("nebari_doctor.agent.display_header")
-def test_run_agent_with_exception(mock_display_header, mock_display_message, mock_get_user_input, mock_agent):
+@patch("nebari_doctor.agent.display_tool_info")
+def test_run_agent_with_exception(mock_display_tool_info, mock_display_header, mock_display_message, mock_get_user_input, mock_agent):
     """Test handling exceptions in the agent"""
-    # Make the agent raise an exception
-    mock_agent.run_sync.side_effect = Exception("Test exception")
+    # Set up the agent to raise an exception on first call, then KeyboardInterrupt on second call
+    mock_agent.run_sync.side_effect = [Exception("Test exception"), KeyboardInterrupt]
     
     # Run the agent
-    run_agent(user_input="Initial input")
+    try:
+        run_agent(user_input="Initial input")
+    except KeyboardInterrupt:
+        pass
     
     # Check that an error message was displayed
     mock_display_message.assert_any_call(

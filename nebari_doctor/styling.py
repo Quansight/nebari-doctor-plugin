@@ -64,6 +64,9 @@ def truncate_long_text(
     Returns:
         str: The truncated message with indication if truncated
     """
+    if not message:
+        return ""
+        
     # First split by actual newlines
     lines = message.split("\n")
 
