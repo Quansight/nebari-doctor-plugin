@@ -102,7 +102,6 @@ def get_nebari_pod_names(config_filepath: pathlib.Path) -> str:
         FileNotFoundError: If the configuration file cannot be found
         ValueError: If the namespace cannot be determined from config
     """
-    print("Getting pods...")
     from nebari.plugins import nebari_plugin_manager
 
     config_schema = nebari_plugin_manager.config_schema
