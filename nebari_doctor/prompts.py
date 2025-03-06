@@ -2,45 +2,41 @@ import inspect
 from typing import Callable, List
 
 import questionary
-from nebari_doctor.styling import (
-    console, 
-    display_message, 
-    MessageType,
-    format_code
-)
+
+from nebari_doctor.styling import MessageType, console, display_message
 
 
 def display_tool_info(tools: List[Callable]) -> None:
     """
     Display information about available tools using questionary.
-    
+
     Args:
         tools: List of tool functions
     """
     tool_names = [tool.__name__ for tool in tools]
-    
+
     # Display header for tools section
     console.rule("[tool_name]Available Tools[/tool_name]")
     console.print()
-    
+
     # Create a list of tool descriptions for initial display
     for tool in tools:
         name = tool.__name__
-        doc_first_line = (inspect.getdoc(tool) or "").split('\n')[0]
+        doc_first_line = (inspect.getdoc(tool) or "").split("\n")[0]
         console.print(f"[tool_name]• {name}[/tool_name]: [info]{doc_first_line}[/info]")
-    
+
     console.print()
-    
+
     while True:
         choice = questionary.select(
             "Select a tool to see its full documentation (or 'Exit' to continue):",
             choices=tool_names + ["Exit"],
-            default="Exit"
+            default="Exit",
         ).ask()
-        
+
         if choice == "Exit":
             break
-        
+
         # Find the selected tool and display its docstring
         for tool in tools:
             if tool.__name__ == choice:

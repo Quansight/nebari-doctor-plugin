@@ -4780,7 +4780,7 @@ def azure_cleanup(config: schema.Main):
     """Delete all resources on Azure created by Nebari"""
 
     # deleting this resource group automatically deletes the associated node resource group
-    aks_resource_group = construct_azure_resource_group_name(
+    ask_resource_group = construct_azure_resource_group_name(
         project_name=config.project_name,
         namespace=config.namespace,
         base_resource_group_name=config.azure.resource_group_name,
@@ -4793,7 +4793,7 @@ def azure_cleanup(config: schema.Main):
         suffix=AZURE_TF_STATE_RESOURCE_GROUP_SUFFIX,
     )
 
-    delete_resource_group(aks_resource_group)
+    delete_resource_group(ask_resource_group)
     delete_resource_group(state_resource_group)
 
 
@@ -7499,12 +7499,12 @@ resource "azurerm_kubernetes_cluster" "main" {
   sku_tier = "Free" # "Free" [Default] or "Paid"
 
   identity {
-    type = "SystemAssigned" # "UserAssigned" or "SystemAssigned".  SystemAssigned identity lifecycles are tied to the AKS Cluster.
+    type = "SystemAssigned" # "UserAssigned" or "SystemAssigned".  SystemAssigned identity lifecycles are tied to the ASK Cluster.
   }
 
   lifecycle {
     ignore_changes = [
-      # We ignore changes since otherwise, the AKS cluster unsets this default value every time you deploy.
+      # We ignore changes since otherwise, the ASK cluster unsets this default value every time you deploy.
       # https://github.com/hashicorp/terraform-provider-azurerm/issues/24020#issuecomment-1887670287
       default_node_pool[0].upgrade_settings,
     ]
@@ -7559,12 +7559,12 @@ output "kubeconfig" {
 }
 
 output "cluster_oidc_issuer_url" {
-  description = "The OpenID Connect issuer URL that is associated with the AKS cluster"
+  description = "The OpenID Connect issuer URL that is associated with the ASK cluster"
   value       = azurerm_kubernetes_cluster.main.oidc_issuer_url
 }
 
 output "resource_group_name" {
-  description = "The name of the resource group in which the AKS cluster is created"
+  description = "The name of the resource group in which the ASK cluster is created"
   value       = azurerm_kubernetes_cluster.main.resource_group_name
 }
 
@@ -7591,7 +7591,7 @@ variable "resource_group_name" {
 }
 
 variable "node_resource_group_name" {
-  description = "name of new resource group for AKS nodes"
+  description = "name of new resource group for ASK nodes"
   type        = string
 }
 
@@ -7792,12 +7792,12 @@ output "kubeconfig_filename" {
 }
 
 output "cluster_oidc_issuer_url" {
-  description = "The OpenID Connect issuer URL that is associated with the AKS cluster"
+  description = "The OpenID Connect issuer URL that is associated with the ASK cluster"
   value       = module.kubernetes.cluster_oidc_issuer_url
 }
 
 output "resource_group_name" {
-  description = "The name of the resource group in which the AKS cluster is created"
+  description = "The name of the resource group in which the ASK cluster is created"
   value       = module.kubernetes.resource_group_name
 }
 
@@ -46453,7 +46453,7 @@ ignore_errors = false
 [tool.typos]
 files.extend-exclude = ["_build", "*/build/*", "*/node_modules/*", "nebari.egg-info", "*.git", "*.js", "*.json", "*.yaml", "*.yml", "pre-commit-config.yaml"]
 default.extend-ignore-re = ["(?Rm)^.*(#|//)\\s*typos: ignore$"]
-default.extend-ignore-words-re = ["aks", "AKS"]
+default.extend-ignore-words-re = ["ask", "ASK"]
 default.check-filename = true
 
 [tool.codespell]
@@ -46461,7 +46461,7 @@ default.check-filename = true
 skip = '_build,*/build/*,*/node_modules/*,nebari.egg-info,*.git,package-lock.json,*.lock'
 check-hidden = true
 ignore-regex = '^\s*"image/\S+": ".*'
-ignore-words-list = 'aks'
+ignore-words-list = 'ask'
 
 
 
@@ -46471,7 +46471,7 @@ File: nebari/pytest.ini
 
 [pytest]
 addopts =
-    # show tests that (f)ailed, (E)rror, or (X)passed in the summary  # typos: ignore
+    # show tests that (f)ailed, (E)error, or (X)passed in the summary  # typos: ignore
     -rfEX
     # Make tracebacks shorter
     --tb=native
@@ -48188,4 +48188,3 @@ You should feel comfortable upgrading if you're using our documented public APIs
 ## Reporting a Vulnerability
 
 If you think you found a vulnerability, please report it at [nebari/security](https://github.com/nebari-dev/nebari/security/advisories/new). Please do not report security vulnerabilities on our public issue tracker. Exposing vulnerabilities publicly without giving maintainers a chance to release a fix puts users at risk.
-

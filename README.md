@@ -1,6 +1,6 @@
 #  Nebari Doctor
 
-This plugin uses an AI agent to attempt to diagnose your issue with Nebari. 
+This plugin uses an AI agent to attempt to diagnose your issue with Nebari.
 
 ![Nebari Doctor Demo](./demo.png)
 

@@ -41,7 +41,7 @@ Directory Structure:
                 │   ├── nebari-extension-system.md
                 │   ├── nebari-gcp.md
                 │   ├── nebari-idle-culler.md
-                │   ├── nebari-kubernets.mdx
+                │   ├── nebari-kubernetes.mdx
                 │   ├── nebari-local.md
                 │   ├── nebari-stages-directory.md
                 │   ├── nebari-upgrade.md
@@ -796,9 +796,9 @@ azure:
   vnet_subnet_id: '/subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Microsoft.Network/virtualNetworks/<vnet-name>/subnets/<subnet-name>'
 ```
 
-If you want the AKS cluster to be [private cluster](https://learn.microsoft.com/en-us/azure/aks/private-clusters?tabs=azure-portal).
+If you want the ASK cluster to be [private cluster](https://learn.microsoft.com/en-us/azure/ask/private-clusters?tabs=azure-portal).
 
-For extra security, you can deploy your cluster from an [Azure Bastion host](https://learn.microsoft.com/en-us/azure/aks/operator-best-practices-network#securely-connect-to-nodes-through-a-bastion-host) (or jump host), making the Kubernetes API only accessible from this one secure machine. You will likely need to also modify the network_profile as follows:
+For extra security, you can deploy your cluster from an [Azure Bastion host](https://learn.microsoft.com/en-us/azure/ask/operator-best-practices-network#securely-connect-to-nodes-through-a-bastion-host) (or jump host), making the Kubernetes API only accessible from this one secure machine. You will likely need to also modify the network_profile as follows:
 
 ```yaml
 azure:
@@ -1526,7 +1526,7 @@ Many of the cloud providers regularly update their internal **Kubernetes version
 This is _completely optional_ as Nebari will, by default, select the most recent version available for your preferred cloud provider:
 [Google Cloud Platform](https://cloud.google.com/kubernetes-engine/docs/release-notes-stable);
 [Amazon Web Services](https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html);
-[Microsoft Azure](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions?tabs=azure-cli).
+[Microsoft Azure](https://docs.microsoft.com/en-us/azure/ask/supported-kubernetes-versions?tabs=azure-cli).
 :::
 
 
@@ -2951,7 +2951,7 @@ you'll need to have the
 installed. The command to update your `kubeconfig` for Azure is:
 
 ```bash
-az aks get-credentials --resource-group <project-name>-<namespace> --name <project-name>-<namespace>
+az ask get-credentials --resource-group <project-name>-<namespace> --name <project-name>-<namespace>
 ```
 
 </TabItem>
@@ -4653,7 +4653,7 @@ File: /nebari-docs/docs/docs/how-tos/nebari-environment-management.md
 
 ---
 id: nebari-environment-management
-title: Setup Deployment Environment 
+title: Setup Deployment Environment
 description: Best Practices for Managing Your Python Environment
 ---
 
@@ -5315,7 +5315,7 @@ Be sure to fill in the following fields carefully:
     - The recommended minimum vCPU and memory for a `general` node is 8 vCPU / 32 GB RAM
     - The recommended minimum vCPU and memory for a `user` and `worker` node is 4 vCPU / 16 GB RAM
   - `Disk size`
-    - The recommended minimum is 200 GB for the attached EBS (block-strage)
+    - The recommended minimum is 200 GB for the attached EBS (block-storage)
 - "Node Group scaling configuration"
   - `Minimum size` and `Maximum size` of 1 for the `general` node group
 - "Node Group subnet configuration"
@@ -6589,7 +6589,7 @@ This upgrade process bumps the version of the control plane along with all node 
 :::
 
 <Tabs>
-  
+
 <TabItem label="GCP" value="gcp" default="true">
 
 Google Kubernetes Engine (GKE) cut their own platform specific version of Kubernetes that usually look something like: `1.26.7-gke.500`; this corresponds to a Kubernetes version of `1.26.7`.
@@ -6662,15 +6662,15 @@ For more information about EKS upgrades, please refer to the [EKS documentation]
 
 <TabItem label="Azure" value="azure">
 
-The Azure Kubernetes Service (AKS) requires that you specify the major, minor, and patch version you would like to use. To specify a Kubernetes version update the `azure.kubernetes_version` to `1.26.7` (or the version you need to upgrade to). Then run `nebari deploy` to apply these changes. This deployment process might take as long as 30 minutes.
+The Azure Kubernetes Service (ASK) requires that you specify the major, minor, and patch version you would like to use. To specify a Kubernetes version update the `azure.kubernetes_version` to `1.26.7` (or the version you need to upgrade to). Then run `nebari deploy` to apply these changes. This deployment process might take as long as 30 minutes.
 
 :::info
-You will get a validation error if you try to select a Kubernetes version that is unsupported by AKS or a version higher than [`HIGHEST_SUPPORTED_K8S_VERSION`][highest-supported-k8s].
+You will get a validation error if you try to select a Kubernetes version that is unsupported by ASK or a version higher than [`HIGHEST_SUPPORTED_K8S_VERSION`][highest-supported-k8s].
 :::
 
 Then repeat the above process one minor version at a time.
 
-For more information about AKS upgrade, please refer to the [AKS documentation](https://learn.microsoft.com/en-us/azure/aks/upgrade-cluster?tabs=azure-cli).
+For more information about ASK upgrade, please refer to the [ASK documentation](https://learn.microsoft.com/en-us/azure/ask/upgrade-cluster?tabs=azure-cli).
 
 </TabItem>
 
@@ -7258,11 +7258,11 @@ File: /nebari-docs/docs/docs/references/enhanced-security.md
 
 The security of _AWS Nebari_ deployments can be enhanced through the following deployment configuration options in `nebari-config.yaml`:
 
-- **Explicit definition of container sources**  
+- **Explicit definition of container sources**
   This option allows for the use of locally mirrored, security-hardened, or otherwise customized container images in place of the containers used by default.
   See: [container-sources](container-sources.md)
 
-- **Installation of custom SSL certificate(s) into EKS hosts**  
+- **Installation of custom SSL certificate(s) into EKS hosts**
   Install private certificates used by (e.g.) in-line content inspection engines which re-encrypt traffic.
 
 ```
@@ -7283,7 +7283,7 @@ amazon_web_services:
             sudo update-ca-trust extract
 ```
 
-- **Private EKS endpoint configuration**  
+- **Private EKS endpoint configuration**
   Mirrors the corresponding AWS console option, which routes all EKS traffic within the VPC.
 
 ```
@@ -7291,7 +7291,7 @@ amazon_web_services:
     eks_endpoint_access: private # valid values: [public, private, public_and_private]
 ```
 
-- **Deploy into existing subnets**  
+- **Deploy into existing subnets**
   Instructs Nebari to be deployed into existing subnets, rather than creating its own new subnets.
   An advantage of deploying to existing subnets is the ability to use private subnets. Note that the **ingress load-balancer-annotation** must be set appropriately based on the type (private or public) of subnet.
 
@@ -7308,7 +7308,7 @@ ingress:
       service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0123456789abcdef,subnet-abcdef0123456789"
 ```
 
-- **Use existing SSL certificate**  
+- **Use existing SSL certificate**
   Instructs Nebari to use the SSL certificate specified by `[k8s-custom-secret-name]`
 
 ```
@@ -7339,7 +7339,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 Technical descriptions of how Nebari works.
 
 - [Enhanced Security](enhanced-security.md) - Nebari security configuration guide
-- [Local Container Repo](container-sources.md) - Deploying Nebari from a Local Container Repo 
+- [Local Container Repo](container-sources.md) - Deploying Nebari from a Local Container Repo
 <DocCardList items={useCurrentSidebarCategory().items}/>
 
 
@@ -7379,10 +7379,10 @@ Each persona is placed in a Nebari user group:
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 25-35</p> 
-            <p>Role: Data scientist </p> 
-            <p>Reports to: Head of Data Science</p>  
-            <p>Nebari user group: end user</p>  
+            <p>Age bracket: 25-35</p>
+            <p>Role: Data scientist </p>
+            <p>Reports to: Head of Data Science</p>
+            <p>Nebari user group: end user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/alia.png" alt="cartoon image of persona alia" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7425,10 +7425,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 25-35 </p> 
-            <p>Role: Software Engineer/ ML Engineer </p> 
-            <p>Reports to: Head of Software Engineering </p>  
-            <p>Nebari user group: super user</p>  
+            <p>Age bracket: 25-35 </p>
+            <p>Role: Software Engineer/ ML Engineer </p>
+            <p>Reports to: Head of Software Engineering </p>
+            <p>Nebari user group: super user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/blake.png" alt="cartoon image of persona blake" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7466,10 +7466,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 30-40</p> 
-            <p>Role: Staff Machine learning engineer at a startup </p> 
-            <p>Reports to: Head of Software Engineering</p>  
-            <p>Nebari user group: super user</p>  
+            <p>Age bracket: 30-40</p>
+            <p>Role: Staff Machine learning engineer at a startup </p>
+            <p>Reports to: Head of Software Engineering</p>
+            <p>Nebari user group: super user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/enzo.png" alt="cartoon image of persona enzo" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7510,10 +7510,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 30-40  </p> 
-            <p>Role: Staff Machine learning engineer  </p> 
-            <p>Reports to: Head of Software Engineering</p>  
-            <p>Nebari user group: super user</p>  
+            <p>Age bracket: 30-40  </p>
+            <p>Role: Staff Machine learning engineer  </p>
+            <p>Reports to: Head of Software Engineering</p>
+            <p>Nebari user group: super user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/jacob.png" alt="cartoon image of persona jacob" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7555,10 +7555,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 45-60</p> 
-            <p>Role: CEO</p> 
-            <p>Reports to: &mdash; </p>  
-            <p>Nebari user group: customer</p>  
+            <p>Age bracket: 45-60</p>
+            <p>Role: CEO</p>
+            <p>Reports to: &mdash; </p>
+            <p>Nebari user group: customer</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/jordan.png" alt="cartoon image of persona jordan" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7595,10 +7595,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 16-25</p> 
-            <p>Role: Student Python Programmer  </p> 
-            <p>Reports to: &mdash; </p>  
-            <p>Nebari user group: end user</p>  
+            <p>Age bracket: 16-25</p>
+            <p>Role: Student Python Programmer  </p>
+            <p>Reports to: &mdash; </p>
+            <p>Nebari user group: end user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/noor.png" alt="cartoon image of persona noor" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7634,10 +7634,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 45-55 </p> 
-            <p>Role: Head of Data Science  </p> 
-            <p>Reports to: CTO</p>  
-            <p>Nebari user group: end user</p>  
+            <p>Age bracket: 45-55 </p>
+            <p>Role: Head of Data Science  </p>
+            <p>Reports to: CTO</p>
+            <p>Nebari user group: end user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/robin.png" alt="cartoon image of persona robin" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7680,10 +7680,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 30-40  </p> 
-            <p>Role: Research Data Scientist </p> 
-            <p>Reports to: Head of Data Science  </p>  
-            <p>Nebari user group: super user</p>  
+            <p>Age bracket: 30-40  </p>
+            <p>Role: Research Data Scientist </p>
+            <p>Reports to: Head of Data Science  </p>
+            <p>Nebari user group: super user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/sam.png" alt="cartoon image of persona sam" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7723,10 +7723,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 35-45  </p> 
-            <p>Role: Staff Machine learning engineer  </p> 
-            <p>Reports to: Head of Software Engineering  </p>  
-            <p>Nebari user group: end user</p>  
+            <p>Age bracket: 35-45  </p>
+            <p>Role: Staff Machine learning engineer  </p>
+            <p>Reports to: Head of Software Engineering  </p>
+            <p>Nebari user group: end user</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/skyler.png" alt="cartoon image of persona skyler" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -7769,10 +7769,10 @@ N/A
 <table>
     <tr>
         <td style={{border: 'none'}}>
-            <p>Age bracket: 30-45 </p> 
-            <p>Role: Sr. Dev Ops Engineer  </p> 
-            <p>Reports to: Head of Software Engineering  </p>  
-            <p>Nebari user group: admin</p>  
+            <p>Age bracket: 30-45 </p>
+            <p>Role: Sr. Dev Ops Engineer  </p>
+            <p>Reports to: Head of Software Engineering  </p>
+            <p>Nebari user group: admin</p>
         </td>
         <td style={{border: 'none'}}>
             <img src="/img/references/taylor.png" alt="cartoon image of persona taylor" style={{ border: 'none', 'background-color' : 'var(--ifm-color-background-3)', height: 300}}  />
@@ -9710,10 +9710,10 @@ Copy the code below into a `code` cell of your notebook:
 import pandas as pd
 import holoviews as hv
 from bokeh.models import HoverTool
-import panel as pn
+import panel as on
 
 hv.extension('bokeh')
-pn.extension()
+on.extension()
 
 # creating a sample dataset
 data_trees = { 'species_name': ['live oak', 'pecan', 'bur oak', 'cedar elm'],
@@ -9733,7 +9733,7 @@ hover = HoverTool(tooltips=[("avg diameter", "@avg_diameter_inch"),
 combine_plot = plot_bar.opts(tools=[hover]) + plot_curve.opts(line_dash='dashed')
 
 # creating a dashboard using panel
-pn.Row(combine_plot).servable()
+on.Row(combine_plot).servable()
 ```
 
 You can run all the cells in your notebook and view the Panel dashboard using the "Preview with Panel" button in the notebook toolbar:
@@ -11320,4 +11320,3 @@ Understand technical details of Nebari's architecture and how it works.
 [using-vscode]: /docs/how-tos/using-vscode
 [configure-keycloak]: /docs/how-tos/configuring-keycloak
 [create-dashboards]: /docs/tutorials/create-dashboard
-

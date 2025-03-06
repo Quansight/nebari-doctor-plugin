@@ -28,3 +28,6 @@ dev = [
 
 [project.entry-points.nebari]
 nebari-doctor = "nebari_doctor"
+
+[tool.typos]
+files.extend-exclude = ["tests/pod_logs.py"]
