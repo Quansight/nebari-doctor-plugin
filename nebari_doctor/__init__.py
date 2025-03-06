@@ -32,11 +32,15 @@ def nebari_subcommand(cli):
             help="nebari configuration yaml file path",
         ),
     ):
-        if demo:
-            prompt = prompt or DEMO_USER_ISSUE
-            config_filepath = config_filepath or DEMO_CONFIG_FILEPATH
+        main(demo, prompt, config_filepath)
 
-        run_agent(prompt, config_filepath)
+
+def main(demo: bool = False, prompt: str = None, config_filepath: pathlib.Path = None):
+    if demo:
+        prompt = prompt or DEMO_USER_ISSUE
+        config_filepath = config_filepath or DEMO_CONFIG_FILEPATH
+
+    run_agent(prompt, config_filepath)
 
 
 DEMO_USER_ISSUE = 'My user ad tried to shut down the My Panel App (Git) app started by Andy.  The Jupyterhub landing page said "Server stopped successfully", but the Status of the dashboard remained "Running".  What\'s going on?'

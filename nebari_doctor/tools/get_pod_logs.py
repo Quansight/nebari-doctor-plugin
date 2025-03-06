@@ -138,13 +138,3 @@ def get_pods(namespace: str) -> str:
         [f"{p['metadata']['name']} {p['status']['phase']}" for p in pod_dict["items"]]
     )
     return pod_names
-
-
-if __name__ == "__main__":
-    config_filepath = pathlib.Path(
-        "/home/balast/CodingProjects/nebari/scratch_deployment/nebari-config.yaml"
-    )
-    namespace = "nebari"
-    pods = get_pods(config_filepath=config_filepath)
-    breakpoint()
-    print("done")

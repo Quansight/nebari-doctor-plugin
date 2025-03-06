@@ -105,7 +105,8 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
 
         # Define tools with wrappers for better output formatting
         tools = [
-            message_user,
+            # I need to remove this tool b/c the agent doesn't treat it correctly this way.  See examples for an alternative way to do so.
+            # message_user,
         ]
         for tool in [
             make_get_nebari_config_tool(nebari_config_path),
@@ -144,14 +145,16 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
         display_message(user_input, MessageType.USER)
 
         # Main conversation loop
+        message_history = []
         while True:
-            # TODO: Stream the LLM message to a pnael
+            # TODO: Stream the LLM message to a panel
             # Show thinking message
             display_message("Thinking about your question...", MessageType.SYSTEM)
 
             # Run the agent
             try:
-                result = agent.run_sync(user_input)
+                result = agent.run_sync(user_input, message_history=message_history)
+                message_history.extend(result.new_messages())
             except Exception as e:
                 display_message(f"Error while processing: {str(e)}", MessageType.ERROR)
                 user_input = get_user_input(
