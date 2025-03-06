@@ -14,7 +14,7 @@ from rich.table import Table
 from rich.theme import Theme
 
 # Define a custom theme with consistent colors
-NEBARI_THEME = Theme(
+NEBARI_DOCTOR_THEME = Theme(
     {
         # Main conversation colors
         "agent": "bold bright_blue",
@@ -33,7 +33,7 @@ NEBARI_THEME = Theme(
 )
 
 # Create a console with our theme
-console = Console(theme=NEBARI_THEME)
+console = Console(theme=NEBARI_DOCTOR_THEME)
 
 
 class MessageType(Enum):

@@ -114,7 +114,7 @@ def run_agent(prompt: str, nebari_config_path: pathlib.Path) -> str:
         )
 
         latest_result = ChatResponse(message=USER_PROMPT)
-        message_history = []  # noqa: F841
+        message_history = []  # noqa: F841  TODO: delete if not needed
 
         # Display initial user issue
         user_input = INITIAL_NEBARI_ISSUE
