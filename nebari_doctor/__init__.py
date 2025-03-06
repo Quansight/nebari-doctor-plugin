@@ -3,9 +3,10 @@ import pathlib
 import typer
 from nebari.hookspecs import hookimpl
 
-from nebari_doctor.agent import USER_PROMPT, run_agent  # noqa: F401
+from nebari_doctor.agent import INITIAL_USER_PROMPT, run_agent  # noqa: F401
 
-user_issue = 'My user ad tried to shut down the My Panel App (Git) app started by Andy.  The Jupyterhub landing page said "Server stopped successfully", but the Status of the dashboard remained "Running".  What\'s going on?'
+HERE = pathlib.Path(__file__).parent
+TEST_DATA_DIR = HERE.parent / "test_data" / "data"
 
 
 @hookimpl
@@ -17,22 +18,27 @@ def nebari_subcommand(cli):
             "--demo",
             "-d",
             help="Run the Nebari Doctor in demo mode",
-            is_eager=True,
         ),
         prompt: str = typer.Option(
-            # user_issue,
+            None,
             "--prompt",
             "-p",
             help="Describe your Nebari issue",
-            prompt=USER_PROMPT,
         ),
-        config_filename: pathlib.Path = typer.Option(
-            ...,
+        config_filepath: pathlib.Path = typer.Option(
+            None,
             "--config",
             "-c",
             help="nebari configuration yaml file path",
         ),
     ):
+        if demo:
+            prompt = prompt or DEMO_USER_ISSUE
+            config_filepath = config_filepath or DEMO_CONFIG_FILEPATH
 
-        result = run_agent(prompt, config_filename)
-        print(result)
+        run_agent(prompt, config_filepath)
+
+
+DEMO_USER_ISSUE = 'My user ad tried to shut down the My Panel App (Git) app started by Andy.  The Jupyterhub landing page said "Server stopped successfully", but the Status of the dashboard remained "Running".  What\'s going on?'
+
+DEMO_CONFIG_FILEPATH = TEST_DATA_DIR / "test-nebari-config.yaml"

@@ -45,7 +45,7 @@ def display_tool_info(tools: List[Callable]) -> None:
                 break
 
 
-LLM_PROMPT = """You are an AI assistant tasked with helping users debug issues they are experiencing with Nebari. Nebari is an open-source data science platform that deploys on Kubernetes and helps data science teams manage their infrastructure, environments, and collaboration.
+LLM_SYSTEM_PROMPT = """You are an AI assistant tasked with helping users debug issues they are experiencing with Nebari. Nebari is an open-source data science platform that deploys on Kubernetes and helps data science teams manage their infrastructure, environments, and collaboration.
 
 **Core Information about Nebari:**
 

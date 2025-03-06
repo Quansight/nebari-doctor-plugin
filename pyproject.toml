@@ -30,4 +30,4 @@ dev = [
 nebari-doctor = "nebari_doctor"
 
 [tool.typos]
-files.extend-exclude = ["tests/pod_logs.py"]
+files.extend-exclude = ["tests/test_data/pod_logs.py"]
