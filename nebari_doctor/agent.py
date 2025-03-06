@@ -146,9 +146,16 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
 
         # Main conversation loop
         while True:
-            # Show a simple message instead of a spinner since run_sync may use threading
+            # Show thinking message
             display_message("Thinking about your question...", MessageType.SYSTEM)
-            result = agent.run_sync(user_input)
+            
+            # Run the agent
+            try:
+                result = agent.run_sync(user_input)
+            except Exception as e:
+                display_message(f"Error while processing: {str(e)}", MessageType.ERROR)
+                user_input = get_user_input("Would you like to try again with a different question?")
+                continue
             
             latest_result = result.data            
             user_input = message_user(latest_result.message)
