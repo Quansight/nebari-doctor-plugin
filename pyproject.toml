@@ -24,6 +24,7 @@ dependencies = [
 dev = [
     "pre-commit>=3.5.0",
     "pytest",
+    "pytest-mock",
 ]
 
 [project.entry-points.nebari]
