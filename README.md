@@ -10,11 +10,10 @@ Run the following from top level dir:
 conda env create -f environment.yaml
 conda activate nebari-doctor
 pip install -e .
-python -m nebari_doctor
 ```
 
 # Run the Demo
-- Set `OPENAI_API_KEY` env var (or `GEMINI_API_KEY` if using Gemini)
+- Set `OPENAI_API_KEY` env var
 - Run the demo with `python -m nebari_doctor`
 
 # Features
