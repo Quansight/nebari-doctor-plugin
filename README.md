@@ -22,20 +22,6 @@ pip install -e .
 - 🔍 Intelligent analysis of pod logs and configuration
 - 💬 Interactive chat experience with the diagnostic agent
 
-# How it works
-Build a nebari doctor LLM functionality
-- User describes issues in a friendly chat interface
-- LLM gets context:
-    - pod logs (1.5M+ words)
-    - code base (260K words)
-    - nebari docs (224K words)
-        - FAQ
-    - search/look at open github issues
-    - search/look at discussions
-- System prompt describes Nebari, tell user what is wrong
-
-Too many words for most LLMs context so, we'll have an agent assess which pod logs it thinks are going to be most useful or look at all sequentially and assess if they look useful or not.
-
 # Agent Workflow
 - User enters issue they are seeing
 - LLM decides whether more info is needed from user or if the issue is clear enough to start looking at logs.  If more info needed from user, then ask for more and then repeat this step.
@@ -60,5 +46,3 @@ graph TD
     F -- Yes --> H[Return answer];
     H --> A;
 ```
-
-Currently, it only is an example of how it might work. The agent will analyze your Nebari configuration and logs to help diagnose issues you're experiencing.
