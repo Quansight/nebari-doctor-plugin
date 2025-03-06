@@ -13,8 +13,8 @@ def nebari_subcommand(cli):
     @cli.command()
     def doctor(
         prompt: str = typer.Option(
-            user_issue,
-            # '--prompt', '-p',  help="Describe your Nebari issue", prompt=USER_PROMPT
+            # user_issue,
+            '--prompt', '-p',  help="Describe your Nebari issue", prompt=USER_PROMPT
         ),
         config_filename: pathlib.Path = typer.Option(
             ...,
