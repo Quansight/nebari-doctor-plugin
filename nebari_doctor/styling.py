@@ -131,8 +131,8 @@ def display_header(title: str) -> None:
 @contextlib.contextmanager
 def loading_spinner(text: str = "Thinking..."):
     """Display a loading spinner while waiting for an operation to complete"""
-    with console.status(f"[info]{text}[/info]", spinner="dots") as status:
-        yield status
+    with console.status(f"[info]{text}[/info]", spinner="dots"):
+        yield
 
 
 def display_tool_list(tools: List[Dict[str, Any]]) -> None:
