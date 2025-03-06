@@ -20,6 +20,9 @@ def mock_console(monkeypatch):
         def print(self, *args, **kwargs):
             mock_print_calls.append((args, kwargs))
         
+        def rule(self, *args, **kwargs):
+            mock_print_calls.append((args, kwargs))
+        
         @property
         def width(self):
             return 100
@@ -61,7 +64,7 @@ def test_display_message_agent(mock_console):
     assert len(mock_console) == 1
     args, kwargs = mock_console[0]
     assert isinstance(args[0], Panel)
-    assert "Nebari Doctor" in str(args[0])
+    assert "Nebari Doctor" in args[0].title
 
 
 def test_display_message_user(mock_console):
@@ -70,7 +73,7 @@ def test_display_message_user(mock_console):
     assert len(mock_console) == 1
     args, kwargs = mock_console[0]
     assert isinstance(args[0], Panel)
-    assert "User" in str(args[0])
+    assert "User" in args[0].title
 
 
 def test_display_message_tool(mock_console):
@@ -79,7 +82,7 @@ def test_display_message_tool(mock_console):
     assert len(mock_console) == 1
     args, kwargs = mock_console[0]
     assert isinstance(args[0], Panel)
-    assert "Tool Output" in str(args[0])
+    assert "Tool Output" in args[0].title
 
 
 def test_display_message_system(mock_console):
@@ -95,7 +98,7 @@ def test_display_message_warning(mock_console):
     assert len(mock_console) == 1
     args, kwargs = mock_console[0]
     assert isinstance(args[0], Panel)
-    assert "Warning" in str(args[0])
+    assert "Warning" in args[0].title
 
 
 def test_display_message_error(mock_console):
@@ -104,7 +107,7 @@ def test_display_message_error(mock_console):
     assert len(mock_console) == 1
     args, kwargs = mock_console[0]
     assert isinstance(args[0], Panel)
-    assert "Error" in str(args[0])
+    assert "Error" in args[0].title
 
 
 def test_display_header(mock_console):

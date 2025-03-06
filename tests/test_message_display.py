@@ -29,7 +29,7 @@ def test_agent_message_display(mock_console):
     # Check that the panel contains the message and has the right title
     panel = args[0]
     assert isinstance(panel, Panel)
-    assert "Test agent message" in str(panel)
+    assert "Test agent message" in panel.renderable.markup
     assert "Nebari Doctor" in panel.title
 
 
@@ -44,7 +44,7 @@ def test_user_message_display(mock_console):
     # Check that the panel contains the message and has the right title
     panel = args[0]
     assert isinstance(panel, Panel)
-    assert "Test user message" in str(panel)
+    assert "Test user message" in panel.renderable
     assert "User" in panel.title
 
 
@@ -59,7 +59,7 @@ def test_tool_message_display(mock_console):
     # Check that the panel contains the message and has the right title
     panel = args[0]
     assert isinstance(panel, Panel)
-    assert "Test tool output" in str(panel)
+    assert "Test tool output" in panel.renderable
     assert "Tool Output" in panel.title
 
 
@@ -86,7 +86,7 @@ def test_warning_message_display(mock_console):
     # Check that the panel contains the message and has the right title
     panel = args[0]
     assert isinstance(panel, Panel)
-    assert "Test warning message" in str(panel)
+    assert "Test warning message" in panel.renderable
     assert "Warning" in panel.title
 
 
@@ -101,7 +101,7 @@ def test_error_message_display(mock_console):
     # Check that the panel contains the message and has the right title
     panel = args[0]
     assert isinstance(panel, Panel)
-    assert "Test error message" in str(panel)
+    assert "Test error message" in panel.renderable
     assert "Error" in panel.title
 
 
@@ -133,4 +133,4 @@ def test_long_message_truncation(mock_console):
     # Check that the panel contains truncation message
     panel = args[0]
     assert isinstance(panel, Panel)
-    assert "output truncated" in str(panel)
+    assert "output truncated" in panel.renderable

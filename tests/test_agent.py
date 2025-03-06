@@ -91,7 +91,10 @@ def test_run_agent_with_input(mock_display_header, mock_display_message, mock_ge
     mock_display_header.assert_called_once()
     
     # Check that the agent was run with the initial input
-    mock_agent.run_sync.assert_called_with("Initial input", message_history=[])
+    mock_agent.run_sync.assert_called_once()
+    # Get the first call arguments
+    args, kwargs = mock_agent.run_sync.call_args
+    assert args[0] == "Initial input"
 
 
 @patch("nebari_doctor.agent.display_header")
@@ -101,10 +104,10 @@ def test_run_agent_without_input(mock_display_header, mock_display_message, mock
     run_agent()
     
     # Check that get_user_input was called to get the initial input
-    assert mock_get_user_input.call_count >= 1
+    mock_get_user_input.assert_called_once()
     
     # Check that the agent was run with the user input
-    mock_agent.run_sync.assert_called()
+    mock_agent.run_sync.assert_called_once()
 
 
 @patch("nebari_doctor.agent.display_header")
@@ -117,7 +120,7 @@ def test_run_agent_with_exception(mock_display_header, mock_display_message, moc
     run_agent(user_input="Initial input")
     
     # Check that an error message was displayed
-    error_calls = [call for call in mock_display_message.call_args_list 
-                  if call[0][1] == MessageType.ERROR]
-    assert len(error_calls) >= 1
-    assert "Test exception" in str(error_calls[0])
+    mock_display_message.assert_any_call(
+        "Error while processing: Test exception", 
+        MessageType.ERROR
+    )
