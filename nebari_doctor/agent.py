@@ -5,7 +5,7 @@ from functools import wraps
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 
-from nebari_doctor.prompts import LLM_PROMPT, display_tool_info
+from nebari_doctor.prompts import LLM_SYSTEM_PROMPT, display_tool_info
 from nebari_doctor.styling import (
     MessageType,
     display_header,
@@ -61,7 +61,7 @@ def message_user(message: str) -> str:
     return user_input
 
 
-USER_PROMPT = textwrap.dedent(
+INITIAL_USER_PROMPT = textwrap.dedent(
     """
     I am an AI Agent designed to help users resolve any Nebari issues and answer questions about Nebari. Tell me the issue you're seeing and I'll do my best to help you resolve your issue.
 
@@ -72,19 +72,32 @@ USER_PROMPT = textwrap.dedent(
 # INITIAL_NEBARI_ISSUE = textwrap.dedent("""
 #     My user "ad" tried to shGetting podsut down the My Panel App (Git) app started by Andy.  The Jupyterhub landing page said "Server stopped successfully", but the Status of the dashboard remained "Running".  What\'s going on?""".strip())
 
-INITIAL_NEBARI_ISSUE = textwrap.dedent(
-    """
-    Does anything look wrong with my nebari config?""".strip()
-)
+# INITIAL_NEBARI_ISSUE = textwrap.dedent(
+#     """
+#     Does anything look wrong with my nebari config?""".strip()
+# )
 
 
 class ChatResponse(BaseModel):
     message: str = Field(description="The message to display to the user.")
 
 
-def run_agent(prompt: str, nebari_config_path: pathlib.Path) -> str:
-    """
-    Run the agent with a simple prompt.
+def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -> None:
+    """Runs the Nebari Doctor agent to help users resolve Nebari issues.
+
+    Args:
+        user_input (str, optional): Initial user input describing the issue.
+            If not given, user will be prompted for input. Defaults to None.
+        nebari_config_path (pathlib.Path, optional): Path to nebari config file.
+            Needed for some agent tools. Defaults to None.
+
+    Returns:
+        None: This function doesn't return a value but runs the interactive agent.
+            The agent continues running until manually interrupted.
+
+    Raises:
+        KeyboardInterrupt: When the user exits with Ctrl+C
+        Exception: For any errors that occur during agent execution
     """
     try:
         # Display welcome header
@@ -93,13 +106,22 @@ def run_agent(prompt: str, nebari_config_path: pathlib.Path) -> str:
         # Define tools with wrappers for better output formatting
         tools = [
             message_user,
-            tool_output_wrapper(make_get_nebari_config_tool(nebari_config_path)),
-            tool_output_wrapper(make_get_nebari_pod_names_tool(nebari_config_path)),
-            tool_output_wrapper(get_nebari_pod_logs_tool),
         ]
+        for tool in [
+                    make_get_nebari_config_tool(nebari_config_path),
+                    make_get_nebari_pod_names_tool(nebari_config_path),
+                    get_nebari_pod_logs_tool,
+                ]:
+            if nebari_config_path:
+                tools.append(tool_output_wrapper(tool))
+        if not nebari_config_path:
+            display_message(
+                "Nebari config file path not provided. It is strongly recommended to pass in the nebari config file path. The agent's ability to help is severely limited without it.",
+                MessageType.WARNING,
+            )
 
         # Show introduction
-        display_message(USER_PROMPT, MessageType.SYSTEM)
+        display_message(INITIAL_USER_PROMPT, MessageType.SYSTEM)
         show_tools = True
 
         if show_tools:
@@ -108,21 +130,22 @@ def run_agent(prompt: str, nebari_config_path: pathlib.Path) -> str:
         agent = Agent(
             # 'google-gla:gemini-2.0-flash',
             "openai:gpt-4o",
-            system_prompt=LLM_PROMPT,
+            system_prompt=LLM_SYSTEM_PROMPT,
             result_type=ChatResponse,
             tools=tools,
         )
 
-        latest_result = ChatResponse(message=USER_PROMPT)
-        message_history = []  # noqa: F841  TODO: delete if not needed
+        latest_result = ChatResponse(message=INITIAL_USER_PROMPT)
 
         # Display initial user issue
-        user_input = INITIAL_NEBARI_ISSUE
+        user_input = user_input
+        if not user_input:
+            user_input = get_user_input()
         display_message(user_input, MessageType.USER)
 
         # Main conversation loop
         while True:
-            result = agent.run_sync(user_input)  # , message_history=message_history)
+            result = agent.run_sync(user_input)  
             latest_result = result.data
             user_input = message_user(latest_result.message)
             display_message(user_input, MessageType.USER)

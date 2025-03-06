@@ -41,6 +41,7 @@ class MessageType(Enum):
     USER = "user"
     TOOL = "tool"
     SYSTEM = "system"
+    WARNING = "warning"
     ERROR = "error"
 
 
@@ -89,6 +90,17 @@ def display_message(
 
     elif message_type == MessageType.SYSTEM:
         console.print(f"[info]{message}[/info]")
+    
+    elif message_type == MessageType.WARNING:
+        panel = Panel(
+            message,
+            title="⚠️ Warning",
+            title_align="left",
+            border_style="warning",
+            padding=(1, 2),
+            expand=False,
+        )
+        console.print(panel)
 
     elif message_type == MessageType.ERROR:
         panel = Panel(
