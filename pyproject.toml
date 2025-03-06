@@ -10,9 +10,10 @@ allow-direct-references = true
 
 [project]
 name = "nebari_doctor"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
-    "nebari @ file:../nebari",
+    # put in an example git repo
+    "nebari @ git+https://github.com/nebari-dev/nebari.git@nebari_doctor",
     "pydantic_ai==0.0.23",
     "questionary==2.0.0",
     "rich==13.9.4",
