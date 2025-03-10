@@ -41,11 +41,6 @@ MODEL_CONTEXT_LIMIT = {
 }
 
 
-# def directory_structure():
-#     """ Returns directory structure (recursively) + number of tokens in each document"""
-#     pass
-
-
 def message_user(message: str) -> str:
     """
     Send a message to the user.  This tool is used to update the user on the status of trying to fix their problem or to ask the user for additional information, or any other message that the agent wants to send to the user.
@@ -68,14 +63,6 @@ INITIAL_USER_PROMPT = textwrap.dedent(
     I have the following tools at my disposal.
     """
 )
-
-# INITIAL_NEBARI_ISSUE = textwrap.dedent("""
-#     My user "ad" tried to shGetting podsut down the My Panel App (Git) app started by Andy.  The Jupyterhub landing page said "Server stopped successfully", but the Status of the dashboard remained "Running".  What\'s going on?""".strip())
-
-# INITIAL_NEBARI_ISSUE = textwrap.dedent(
-#     """
-#     Does anything look wrong with my nebari config?""".strip()
-# )
 
 
 class ChatResponse(BaseModel):
@@ -100,14 +87,9 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
         Exception: For any errors that occur during agent execution
     """
     try:
-        # Display welcome header
         display_header("🔍 Welcome to Nebari Doctor")
 
-        # Define tools with wrappers for better output formatting
-        tools = [
-            # I need to remove this tool b/c the agent doesn't treat it correctly this way.  See examples for an alternative way to do so.
-            # message_user,
-        ]
+        tools = []
         for tool in [
             make_get_nebari_config_tool(nebari_config_path),
             make_get_nebari_pod_names_tool(nebari_config_path),
@@ -130,7 +112,7 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
 
         agent = Agent(
             # 'google-gla:gemini-2.0-flash',
-            "openai:gpt-4o",
+            "openai:gpt-4o",  # TODO: Make model configurable
             system_prompt=LLM_SYSTEM_PROMPT,
             result_type=ChatResponse,
             tools=tools,
@@ -148,6 +130,7 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
         message_history = []
         while True:
             # TODO: Stream the LLM message to a panel
+
             # Show thinking message
             display_message("Thinking about your question...", MessageType.SYSTEM)
 
