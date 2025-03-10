@@ -31,15 +31,14 @@ def get_nebari_docs_layout_tool():
             # Add the file at the end
             current[parts[-1]] = str(item)
     
-    return layout
+    return str(layout)
 
 
 def get_nebari_docs_content_tool(files: list[Path]):
-    """Walk the directory structure of the Nebari docs and return a dictionary
-    representing the content of the docs.    
+    """retun
     """
     content = dict()
     for file in files:
         with open(file) as f:
             content[file] = f.read()
-    return content
+    return str(content)
