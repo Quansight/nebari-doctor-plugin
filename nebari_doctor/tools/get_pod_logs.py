@@ -7,7 +7,7 @@ from _nebari.config import read_configuration
 from loguru import logger
 
 def get_nebari_pod_logs_tool(
-    pod_names: list[str], since_minutes: int = 10, namespace: str = "dev"
+    pod_names: list[str], since_minutes: int = 10, namespace: str = "dev", container: str = None
 ) -> dict:
     """
     Retrieve logs from specified Nebari pods.  Doesn't support wildcard or regex.
@@ -20,6 +20,8 @@ def get_nebari_pod_logs_tool(
         pod_names (list[str]): List of pod names to retrieve logs from
         since_minutes (int, optional): Time range in minutes to limit log retrieval.
                                       Defaults to 10 minutes.
+        namespace (str, optional): Kubernetes namespace. Defaults to "dev".
+        container (str, optional): Container name to get logs from. If None, gets logs from all containers.
 
     Returns:
         dict: Dictionary mapping pod names to their logs or error messages.
@@ -33,8 +35,9 @@ def get_nebari_pod_logs_tool(
     Raises:
         kubernetes.config.config_exception.ConfigException: If kube config cannot be loaded
     """
+    container_msg = f" (container: {container})" if container else ""
     print(
-        f'Getting pod logs for {",".join(pod_names)} for last {since_minutes} minutes'
+        f'Getting pod logs for {",".join(pod_names)} for last {since_minutes} minutes{container_msg}'
     )
     kubernetes.config.kube_config.load_kube_config()
 
@@ -47,6 +50,7 @@ def get_nebari_pod_logs_tool(
                 name=pod_name,
                 namespace=namespace,
                 since_seconds=since_minutes * 60,
+                container=container,
             )
         except kubernetes.client.exceptions.ApiException as e:
             logs[pod_name] = f"Failed to retrieve logs: {e.reason}"
