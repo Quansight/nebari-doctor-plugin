@@ -4,7 +4,7 @@ import kubernetes.client
 import kubernetes.client.exceptions
 import kubernetes.config
 from _nebari.config import read_configuration
-
+from loguru import logger
 
 def get_nebari_pod_logs_tool(
     pod_names: list[str], since_minutes: int = 10, namespace: str = "dev"
@@ -50,6 +50,7 @@ def get_nebari_pod_logs_tool(
             )
         except kubernetes.client.exceptions.ApiException as e:
             logs[pod_name] = f"Failed to retrieve logs: {e.reason}"
+            logger.error(f"Failed to retrieve logs for pod {pod_name}: {e}")
     return str(logs)
 
 
@@ -137,3 +138,6 @@ def get_pods(namespace: str) -> str:
         [f"{p['metadata']['name']} {p['status']['phase']}" for p in pod_dict["items"]]
     )
     return pod_names
+
+if __name__ == "__main__":
+    print(get_nebari_pod_logs_tool(['nebari-grafana-74874bd867-67t7c']))
