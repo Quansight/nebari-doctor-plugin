@@ -156,4 +156,5 @@ def get_pods(namespace: str) -> str:
 
 
 if __name__ == "__main__":
-    print(get_nebari_pod_logs_tool(["nebari-grafana-74874bd867-67t7c"]))
+    logs = get_nebari_pod_logs_tool(["nebari-grafana-74874bd867-67t7c"])
+    print(logs)
