@@ -31,14 +31,23 @@ def get_nebari_docs_layout_tool():
             # Add the file at the end
             current[parts[-1]] = str(item)
     
-    return str(layout)
+    return layout
 
 
 def get_nebari_docs_content_tool(files: list[Path]):
-    """retun
+    """Retrieve the content of the specified documentation files.
+    
+    Args:
+        files: A list of Path objects pointing to documentation files
+        
+    Returns:
+        A dictionary mapping file paths to their content
+        
+    Raises:
+        FileNotFoundError: If any of the specified files don't exist
     """
     content = dict()
     for file in files:
         with open(file) as f:
             content[file] = f.read()
-    return str(content)
+    return content
