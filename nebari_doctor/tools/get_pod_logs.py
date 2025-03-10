@@ -6,8 +6,12 @@ import kubernetes.config
 from _nebari.config import read_configuration
 from loguru import logger
 
+
 def get_nebari_pod_logs_tool(
-    pod_names: list[str], since_minutes: int = 10, namespace: str = "dev", container: str = None
+    pod_names: list[str],
+    since_minutes: int = 10,
+    namespace: str = "dev",
+    containers: str = None,
 ) -> dict:
     """
     Retrieve logs from specified Nebari pods.  Doesn't support wildcard or regex.
@@ -35,10 +39,6 @@ def get_nebari_pod_logs_tool(
     Raises:
         kubernetes.config.config_exception.ConfigException: If kube config cannot be loaded
     """
-    container_msg = f" (container: {container})" if container else ""
-    print(
-        f'Getting pod logs for {",".join(pod_names)} for last {since_minutes} minutes{container_msg}'
-    )
     kubernetes.config.kube_config.load_kube_config()
 
     v1 = kubernetes.client.CoreV1Api()
@@ -46,12 +46,23 @@ def get_nebari_pod_logs_tool(
     logs = {}
     for pod_name in pod_names:
         try:
-            logs[pod_name] = v1.read_namespaced_pod_log(
-                name=pod_name,
-                namespace=namespace,
-                since_seconds=since_minutes * 60,
-                container=container,
-            )
+            logs[pod_name] = dict()
+
+            if containers is None:
+                containers = [
+                    c.name
+                    for c in v1.read_namespaced_pod(
+                        name=pod_name, namespace=namespace
+                    ).spec.containers
+                ]
+
+            for container in containers:
+                logs[pod_name][container] = v1.read_namespaced_pod_log(
+                    name=pod_name,
+                    namespace=namespace,
+                    since_seconds=since_minutes * 60,
+                    container=container,
+                )
         except kubernetes.client.exceptions.ApiException as e:
             logs[pod_name] = f"Failed to retrieve logs: {e.reason}"
             logger.error(f"Failed to retrieve logs for pod {pod_name}: {e}")
@@ -143,5 +154,6 @@ def get_pods(namespace: str) -> str:
     )
     return pod_names
 
+
 if __name__ == "__main__":
-    print(get_nebari_pod_logs_tool(['nebari-grafana-74874bd867-67t7c']))
+    print(get_nebari_pod_logs_tool(["nebari-grafana-74874bd867-67t7c"]))
