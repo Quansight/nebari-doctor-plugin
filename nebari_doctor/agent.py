@@ -12,6 +12,7 @@ from nebari_doctor.styling import (
     MessageType,
     display_header,
     display_message,
+    get_clean_text,
     get_user_input,
 )
 from nebari_doctor.tools.get_nebari_config import make_get_nebari_config_tool
@@ -140,6 +141,13 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
         # Main conversation loop
         message_history = []
         while True:
+
+            if user_input.strip() == "/copy":
+                if message_history:
+                    get_clean_text(message_history[-1].message)
+                else:
+                    display_message("No message to copy", MessageType.SYSTEM)
+                continue
             # TODO: Stream the LLM message to a panel
 
             # Show thinking message
