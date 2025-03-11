@@ -19,7 +19,7 @@ dependencies = [
     "markdown-it-py>=2.2.0",
     "pygments>=2.15.0",
     # Optional dependencies for clipboard functionality
-    "pywin32; sys_platform == 'win32'",  # For Windows clipboard support
+    "pywin32; sys_platform == 'win32'",
 ]
 
 [project.optional-dependencies]
