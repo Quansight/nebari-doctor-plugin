@@ -16,6 +16,9 @@ pip install -e .
 - Set `OPENAI_API_KEY` env var
 - Run the demo with `python -m nebari_doctor`
 
+# Run Normally
+- `nebari doctor -c nebari-config.yaml`
+
 # Features
 - 🤖 AI-powered diagnostics for Nebari issues
 - 🎨 Beautiful, color-coded interface for easy reading
