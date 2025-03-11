@@ -3,6 +3,7 @@ from pathlib import Path
 NEBARI_DOCS_DIR = Path(__file__).parent.parent.parent / "resources/nebari-docs"
 
 
+# TODO: Get logs associated with the version of Nebari the user is using rather than relying on the hard coded docs
 def get_nebari_docs_layout_tool():
     """Walk the directory structure of the Nebari docs and return a dictionary
     representing the layout of the docs.
