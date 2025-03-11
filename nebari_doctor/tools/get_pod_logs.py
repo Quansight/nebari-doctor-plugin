@@ -66,6 +66,7 @@ def get_nebari_pod_logs_tool(
         except kubernetes.client.exceptions.ApiException as e:
             logs[pod_name] = f"Failed to retrieve logs: {e.reason}"
             logger.error(f"Failed to retrieve logs for pod {pod_name}: {e}")
+
     return str(logs)
 
 

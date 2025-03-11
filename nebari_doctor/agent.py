@@ -1,7 +1,9 @@
 import pathlib
 import textwrap
+import traceback
 from functools import wraps
 
+from loguru import logger
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 
@@ -13,6 +15,10 @@ from nebari_doctor.styling import (
     get_user_input,
 )
 from nebari_doctor.tools.get_nebari_config import make_get_nebari_config_tool
+from nebari_doctor.tools.get_nebari_docs import (
+    get_nebari_docs_content_tool,
+    get_nebari_docs_layout_tool,
+)
 from nebari_doctor.tools.get_pod_logs import (
     get_nebari_pod_logs_tool,
     make_get_nebari_pod_names_tool,
@@ -28,7 +34,9 @@ def tool_output_wrapper(func):
         display_message(f"Running tool: {tool_name}", MessageType.SYSTEM)
         result = func(*args, **kwargs)
         if result:
-            display_message(result, MessageType.TOOL, title=f"🔧 {tool_name} Output")
+            display_message(
+                str(result), MessageType.TOOL, title=f"🔧 {tool_name} Output"
+            )
         return result
 
     return wrapper
@@ -89,7 +97,10 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
     try:
         display_header("🔍 Welcome to Nebari Doctor")
 
-        tools = []
+        tools = [
+            tool_output_wrapper(get_nebari_docs_layout_tool),
+            tool_output_wrapper(get_nebari_docs_content_tool),
+        ]
         for tool in [
             make_get_nebari_config_tool(nebari_config_path),
             make_get_nebari_pod_names_tool(nebari_config_path),
@@ -139,6 +150,8 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
                 result = agent.run_sync(user_input, message_history=message_history)
                 message_history.extend(result.new_messages())
             except Exception as e:
+                logger.error(f"Error while processing: {e}")
+                traceback.print_exc()
                 display_message(f"Error while processing: {str(e)}", MessageType.ERROR)
                 user_input = get_user_input(
                     "Would you like to try again with a different question?"
