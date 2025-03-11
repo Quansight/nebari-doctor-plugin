@@ -42,9 +42,9 @@ def copy_to_clipboard(text):
             process.communicate(input=text.encode('utf-8'))
             return True
             
-        elif platform == 'win32' or platform == 'cygwin':  # Windows
+        elif platform == 'win32' or platform == 'cygwin':  # Windows (both 32-bit and 64-bit)
             try:
-                # Try using pywin32 if available
+                # Try using pywin32 if available (works on both 32-bit and 64-bit Windows)
                 import win32clipboard
                 win32clipboard.OpenClipboard()
                 win32clipboard.EmptyClipboard()
