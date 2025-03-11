@@ -15,7 +15,7 @@ pip install -e .
 # Run the Demo
 - Deploy Nebari
 - [Set up kubectl access](https://www.nebari.dev/docs/how-tos/debug-nebari/#generating-the-kubeconfig)
-- Set `OPENAI_API_KEY` env var
+- Set `OPENAI_API_KEY` env var locally
 - Run the demo with `python -m nebari_doctor`
 
 # Run Normally
