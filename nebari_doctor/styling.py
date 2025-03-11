@@ -93,11 +93,19 @@ def truncate_long_text(
     else:
         return "\n".join(wrapped_lines)
 
-def get_clean_text(message: str) -> None:
-    """Display clean, copyable text version of the last message"""
+def get_clean_text(message: str) -> str:
+    """Display clean, copyable text version of the last message
+    
+    Args:
+        message (str): The message to display
+        
+    Returns:
+        str: The original message (for potential clipboard integration)
+    """
     console.print("\n[bold]Copyable content:[/bold]")
     console.print(message)
     console.print()
+    return message
 
 def display_message(
     message: str, message_type: MessageType, title: Optional[str] = None

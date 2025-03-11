@@ -141,13 +141,39 @@ def run_agent(user_input: str = None, nebari_config_path: pathlib.Path = None) -
         # Main conversation loop
         message_history = []
         while True:
-
-            if user_input.strip() == "/copy":
-                if message_history:
-                    get_clean_text(message_history[-1].message)
+            # Handle special commands
+            if user_input.strip().startswith("/"):
+                command = user_input.strip()
+                
+                if command == "/copy":
+                    if message_history:
+                        copied_text = get_clean_text(message_history[-1].message)
+                        display_message("Last message displayed in copyable format", MessageType.SYSTEM)
+                    else:
+                        display_message("No message to copy", MessageType.SYSTEM)
+                elif command == "/help":
+                    display_message(
+                        "Available commands:\n"
+                        "/copy - Display the last agent message in copyable format\n"
+                        "/help - Show this help message\n"
+                        "/clear - Clear the message history\n"
+                        "/exit - Exit the application",
+                        MessageType.SYSTEM
+                    )
+                elif command == "/clear":
+                    message_history = []
+                    display_message("Message history cleared", MessageType.SYSTEM)
+                elif command == "/exit":
+                    display_message("Exiting...", MessageType.SYSTEM)
+                    return
                 else:
-                    display_message("No message to copy", MessageType.SYSTEM)
+                    display_message(f"Unknown command: {command}. Type /help for available commands.", MessageType.SYSTEM)
+                
+                # Get new input after handling command
+                user_input = get_user_input()
+                display_message(user_input, MessageType.USER)
                 continue
+                
             # TODO: Stream the LLM message to a panel
 
             # Show thinking message
