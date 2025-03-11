@@ -13,12 +13,13 @@ pip install -e .
 ```
 
 # Run the Demo
+- [Set up kubectl access](https://www.nebari.dev/docs/how-tos/debug-nebari/#generating-the-kubeconfig)
 - Set `OPENAI_API_KEY` env var
 - Run the demo with `python -m nebari_doctor`
 
 # Run Normally
-- Set `OPENAI_API_KEY` env var
-- `nebari doctor -c nebari-config.yaml`
+- same as the demo except pass in the config file as well
+- `nebari doctor --config nebari-config.yaml`
 
 # Features
 - 🤖 AI-powered diagnostics for Nebari issues
