@@ -46,7 +46,7 @@ jobs:
           pip install \
           --index-url https://test.pypi.org/simple/ \
           --extra-index-url https://pypi.org/simple \
-          nebari-doctor-plugin==${{ env.NEBARI_DOCTOR_TAG }}
+          nebari-doctor==${{ env.NEBARI_DOCTOR_TAG }}
 
   release-pypi:
     name: Publish Nebari Doctor on PyPi
