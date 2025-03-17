@@ -61,7 +61,7 @@ jobs:
       - name: Test Nebari Doctor
         run: |
           pytest --version
-          pytest --cov=src --cov-report=xml --cov-config=pyproject.toml
+          pytest --cov=nebari_doctor --cov-report=xml --cov-config=pyproject.toml
 
       - name: Report Coverage
         run: |

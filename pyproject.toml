@@ -51,6 +51,10 @@ files.extend-exclude = ["tests/test_data/pod_logs.py", "resources/"]
 
 [tool.coverage.run]
 branch = true
+source = [
+    "nebari_doctor",
+    "tests",
+]
 
 [tool.coverage.report]
 # Regexes for lines to exclude from consideration
