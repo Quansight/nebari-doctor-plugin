@@ -50,5 +50,5 @@ def get_nebari_docs_content_tool(files: list[Path]):
     content = dict()
     for file in files:
         with open(NEBARI_DOCS_DIR / file) as f:
-            content[str(file)] = f.read()
+            content[file] = f.read()
     return content

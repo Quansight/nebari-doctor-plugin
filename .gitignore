@@ -161,3 +161,6 @@ cython_debug/
 
 log/
 .aider*
+
+# setuptools scm
+nebari_doctor/_version.py
