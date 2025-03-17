@@ -1,13 +1,11 @@
 import pytest
-from rich.console import Console
 from rich.panel import Panel
 
 from nebari_doctor.styling import (
     MessageType,
+    display_header,
     display_message,
     truncate_long_text,
-    get_user_input,
-    display_header,
 )
 
 
@@ -15,18 +13,18 @@ from nebari_doctor.styling import (
 def mock_console(monkeypatch):
     """Mock the rich console to capture output"""
     mock_print_calls = []
-    
+
     class MockConsole:
         def print(self, *args, **kwargs):
             mock_print_calls.append((args, kwargs))
-        
+
         def rule(self, *args, **kwargs):
             mock_print_calls.append((args, kwargs))
-        
+
         @property
         def width(self):
             return 100
-    
+
     mock_console = MockConsole()
     monkeypatch.setattr("nebari_doctor.styling.console", mock_console)
     return mock_print_calls

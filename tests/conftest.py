@@ -1,6 +1,7 @@
-import pytest
-from unittest.mock import patch, MagicMock
 import pathlib
+from unittest.mock import MagicMock, patch
+
+import pytest
 
 
 @pytest.fixture
@@ -32,12 +33,12 @@ def mock_agent():
     with patch("nebari_doctor.agent.Agent") as mock_agent_class:
         agent_instance = MagicMock()
         mock_agent_class.return_value = agent_instance
-        
+
         # Set up the run_sync method
         run_result = MagicMock()
         run_result.data.message = "Test agent response"
         agent_instance.run_sync.return_value = run_result
-        
+
         yield agent_instance
 
 
